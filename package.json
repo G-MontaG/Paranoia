@@ -36,7 +36,7 @@
   "scripts": {
     "install": "cd view/ && npm i",
     "postinstall": "typings i --save --global",
-    "start": "electron build/init.js",
+    "start": "gulp start",
     "clear": "rm -rf build/*",
     "clear-doc": "rm -rf doc/*",
     "core": "tsc --watch",

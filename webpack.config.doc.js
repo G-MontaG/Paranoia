@@ -5,11 +5,11 @@ const TypedocWebpackPlugin = require('typedoc-webpack-plugin');
 
 module.exports = {
   watch: false,
-  context: path.join(__dirname, "src"),
+  context: path.join(__dirname, "core"),
   entry: {
   },
   output: {
-    path: path.join(__dirname, "..", "..", "build"),
+    path: path.join(__dirname, "doc"),
     filename: "[name].js"
   },
   resolve: {
@@ -17,8 +17,8 @@ module.exports = {
   },
   plugins: [
     new TypedocWebpackPlugin({
-      out: '/view-doc',
-      name: 'Paranoia (view)',
+      out: '/core-doc',
+      name: 'Paranoia (core)',
       mode: 'file',
       //theme: path.join(__dirname, 'node_modules/typedoc-markdown-theme/bin'),
       includeDeclarations: false,

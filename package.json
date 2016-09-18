@@ -23,16 +23,26 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "electron": "^1.4.0"
+    "electron": "^1.4.0",
+    "electron-connect": "^0.6.0",
+    "gulp": "^3.9.1",
+    "tslint": "^3.15.1",
+    "typedoc": "^0.4.5",
+    "typedoc-webpack-plugin": "^1.0.9",
+    "typescript": "^2.0.2",
+    "typings": "^1.3.3",
+    "webpack": "^2.1.0-beta.22"
   },
   "scripts": {
-    "install": "cd src/ && npm i && cd view/ && npm i",
+    "install": "cd view/ && npm i",
+    "postinstall": "typings i --save --global",
     "start": "electron build/init.js",
     "clear": "rm -rf build/*",
-    "core": "cd src/ && npm run build",
-    "core-doc": "cd src/ && npm run doc",
-    "view": "cd src/view/ && npm run dev",
-    "view-prod": "cd src/view/ && npm run prod",
-    "view-doc": "cd src/view/ && npm run doc"
+    "clear-doc": "rm -rf doc/*",
+    "core": "tsc --watch",
+    "core-doc": "webpack --config='webpack.config.doc.js' --progress",
+    "view": "cd view/ && npm run dev",
+    "view-prod": "cd view/ && npm run prod",
+    "view-doc": "cd view/ && npm run doc"
   }
 }

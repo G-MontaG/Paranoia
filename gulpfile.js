@@ -1,7 +1,10 @@
 const gulp = require('gulp');
 
 // Create an electron-connect server to enable reloading
-const electron = require('electron-connect').server.create({path: "build/init.js"});
+const electron = require('electron-connect').server.create({
+  path: "build/init.js",
+  stopOnClose: true
+});
 
 gulp.task('start', ()=>{
   electron.start();

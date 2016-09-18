@@ -19,7 +19,7 @@ let options = {
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, {useHash: true}),
     ReactiveFormsModule,
   ],
   bootstrap: [AppComponent],

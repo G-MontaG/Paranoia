@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <base href="<%= webpackConfig.output.publicPath %>">
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Language" content="en">
+    <title>Paranoia</title>
+</head>
+
+<body>
+<app>
+    <h5 class="text-center text-error">
+        Loading...
+    </h5>
+
+    <div class="loader">
+        <div data-loader="timer"></div>
+    </div>
+</app>
+<script type="text/javascript" src="<%= webpackConfig.output.publicPath %>/jquery.min.js"></script>
+</body>
+</html>

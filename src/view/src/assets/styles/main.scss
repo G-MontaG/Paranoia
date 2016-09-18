@@ -1,0 +1,16 @@
+body {
+  background-color: $color-llgreen;
+  color: $color-ddblue;
+
+  .underlined {
+    border-bottom: 1px solid $color-llblue;
+    padding-top: 10px;
+    padding-bottom: $header-margin-bottom;
+    margin-bottom: $header-margin-bottom;
+    & > * {
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: $elements-inline-margin;
+    }
+  }
+}

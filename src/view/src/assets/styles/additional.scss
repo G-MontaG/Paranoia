@@ -1,0 +1,107 @@
+/*
+** main Styles
+*/
+.no-content {
+  margin-top: 100px;
+}
+
+.ng-valid {
+  /*background-color: #aefff1;*/
+  border-color: #00ffc0;
+
+  & + .validation-error {
+    display: none;
+  }
+  //& > .required {
+  //
+  //}
+  //& > .min-length {
+  //
+  //}
+  //& > .max-length {
+  //
+  //}
+  //& > .pattern-error {
+  //
+  //}
+}
+.ng-invalid {
+  border-color: $color-error;
+}
+.settings__component-wrapper {
+  margin-top: 50px;
+
+  .settings__component-body {
+    margin-top: 20px;
+  }
+
+  //maybe inside body
+  .navbar-nav > li.active {
+    background-color: #eee;
+  }
+}
+
+/*
+* Switcher styles
+*/
+.switcher {
+  display: none;
+
+  & ~ label {
+    position: relative;
+    top: 0;
+    left: 0;
+    text-wrap: none;
+    white-space: nowrap;
+    width: 28px;
+    height: 14px;
+    margin: 0;
+    padding-left: 40px;
+    font-weight: 500;
+    border-radius: 25px;
+    cursor: pointer;
+    -webkit-transition: background-color .3s ease-in-out;
+    transition: background-color .3s ease-in-out;
+
+    &:before {
+      content: "";
+      position: absolute;
+      display: block;
+      width: 28px;
+      height: 16px;
+      top: 0;
+      left: 0;
+      border-radius: 25px;
+      z-index: 1;
+      background-color: #737373;
+      -webkit-transition: all .3s ease-in-out;
+      transition: all .3s ease-in-out;
+    }
+    &:after {
+      content: "";
+      position: absolute;
+      display: block;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      cursor: pointer;
+      top: -1px;
+      left: -2px;
+      z-index: 1;
+      background-color: #fff;
+      border: 1px solid #737373;
+      -webkit-transition: left .3s ease-in-out;
+      transition: left .3s ease-in-out
+    }
+  }
+  &:checked ~ label:before {
+    background-color: #00ffc0;
+  }
+  &:checked ~ label:after {
+    left: 17px;
+    background-color: #337ab7;
+    border: none;
+    box-shadow: 0 0 3px #337ab7;
+  }
+}
+//.switcher

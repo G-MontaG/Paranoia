@@ -1,0 +1,24 @@
+.dropdown {
+
+  .dropdown-toggle {
+
+    &.dropdown__icon-wrapper {
+      padding: 10px;
+      .avatar {
+
+        width: $avatar-edge;
+        height: $avatar-edge;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        overflow: hidden;
+        display: inline-block;
+        vertical-align: middle;
+
+        img {
+          width: $avatar-edge;
+        }
+      }
+    }
+  }
+}

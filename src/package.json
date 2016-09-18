@@ -9,6 +9,7 @@
     "typings": "^1.3.3"
   },
   "scripts": {
+    "postinstall": "typings i --save --global",
     "build": "tsc --watch"
   }
 }

@@ -26,7 +26,11 @@
     "electron": "^1.4.0"
   },
   "scripts": {
+    "install": "cd src/ && npm i && cd view/ && npm i",
     "start": "electron build/init.js",
-    "build core": "cd src/ && npm run build"
+    "build-core": "cd src/ && npm run build",
+    "build-view-dev": "cd src/view/ && npm run dev",
+    "build-view-prod": "cd src/view/ && npm run prod",
+    "build-view-doc": "cd src/view/ && npm run prod"
   }
 }

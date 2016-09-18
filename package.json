@@ -1,0 +1,32 @@
+{
+  "name": "Paranoia",
+  "private": true,
+  "version": "0.0.1",
+  "description": "",
+  "keywords": [],
+  "homepage": "",
+  "license": "Apache Licence 2.0",
+  "author": {
+    "name": "Arthur Osipenko",
+    "email": "arthur.osipenko@gmail.com",
+    "url": "https://github.com/G-MontaG"
+  },
+  "contributors": [],
+  "main": "server.js",
+  "engines": {
+    "node": ">=6.3.0",
+    "npm": ">=3.10.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^1.4.0"
+  },
+  "scripts": {
+    "start": "electron build/init.js",
+    "build core": "cd src/ && npm run build"
+  }
+}

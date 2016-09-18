@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": false,
+    "removeComments": true,
+    "noImplicitAny": false,
+    "declaration": true,
+    "outDir": "../build/"
+  },
+  "exclude": [
+    "node_modules",
+    "typings/main",
+    "typings/main.d.ts",
+    "view"
+  ],
+  "compileOnSave": true,
+  "buildOnSave": true
+}

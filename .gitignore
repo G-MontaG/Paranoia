@@ -49,5 +49,5 @@ atlassian-ide-plugin.xml
 
 ### Project
 .env
-build/
+/build/
 typings/

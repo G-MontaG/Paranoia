@@ -5,6 +5,8 @@ import {HttpModule} from "@angular/http";
 import {RouterModule} from "@angular/router";
 import {routes} from "./app.routes";
 import {AppComponent} from "./app.component";
+import {MenuComponent} from "./menu/menu.component";
+import {MainViewComponent} from "./main-view/main-view.component";
 
 let options = {
   autoDismiss: true,
@@ -14,6 +16,8 @@ let options = {
 @NgModule({
   declarations: [
     AppComponent,
+    MenuComponent,
+    MainViewComponent,
   ],
   imports: [
     BrowserModule,

@@ -21,9 +21,10 @@
     "type": "git",
     "url": ""
   },
-  "dependencies": {},
+  "dependencies": {
+    "electron": "^1.4.0"
+  },
   "devDependencies": {
-    "electron": "^1.4.0",
     "electron-connect": "^0.6.0",
     "gulp": "^3.9.1",
     "tslint": "^3.15.1",

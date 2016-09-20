@@ -3,8 +3,7 @@ import {OnInit} from '@angular/core';
 
 @Component({
   selector: 'app',
-  template: `<menu></menu>
-            <router-outlet></router-outlet>`,
+  template: require('./app.component.html'),
   providers: []
 })
 export class AppComponent implements OnInit {

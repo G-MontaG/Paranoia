@@ -1,0 +1,16 @@
+.menu {
+  width: 60px;
+  @include position(relative);
+  &__top {
+    @include position(absolute, $top: 0, $left: 0, $right: 0);
+  }
+  &__bottom {
+    @include position(absolute, $bottom: 0, $left: 0, $right: 0);
+  }
+
+  &__item {
+    width: 40px;
+    height: 40px;
+    background: gray;
+  }
+}

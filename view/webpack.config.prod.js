@@ -37,7 +37,7 @@ module.exports = {
     filename: "[name].js"
   },
   resolve: {
-    extensions: ['', '.ts', '.js']
+    extensions: ['.ts', '.js']
   },
   module: {
     loaders: [
@@ -56,16 +56,16 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif|svg)$/i,
-        loader: 'url?name=imgs/[name].[ext]&limit=100000'
+        loader: 'url?name=assets/images/[name].[ext]&limit=100000'
       },
       {
         test: /\.(svg|ttf|eot|woff|woff2)$/,
-        loader: 'file?name=fonts/[name].[ext]',
+        loader: 'file?name=assets/fonts/[name].[ext]',
         exclude: /\/src\/imgs\//
       },
       {
         test: /\.json$/,
-        loader: 'json?name=data/[name].[ext]'
+        loader: 'json?name=assets/data/[name].[ext]'
       },
       {
         test: /index\.html$/,
@@ -105,7 +105,9 @@ module.exports = {
       favicon: 'favicon.ico'
     }),
     new CopyWebpackPlugin([
-      {from: path.join(__dirname, "node_modules", "jquery", "dist", "jquery.min.js")}
+      {from: path.join(__dirname, "node_modules", "semantic-ui", "dist", "semantic.min.css")},
+      {from: path.join(__dirname, "node_modules", "semantic-ui", "dist", "themes", "default", "assets"),
+        to: "assets"}
     ]),
     new TsConfigPathsPlugin(/* { tsconfig, compiler } */)
   ]

@@ -38,7 +38,7 @@ module.exports = {
     filename: "[name].js"
   },
   resolve: {
-    extensions: ['', '.ts', '.js']
+    extensions: ['.ts', '.js']
   },
   module: {
     loaders: [
@@ -92,18 +92,14 @@ module.exports = {
       disable: false,
       allChunks: true
     }),
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery'
-    }),
     new HtmlWebpackPlugin({
       template: "index.ejs",
       inject: 'body',
       favicon: 'favicon.ico'
     }),
     new CopyWebpackPlugin([
-      {from: path.join(__dirname, "semantic", "dist", "semantic.min.css")},
-      {from: path.join(__dirname, "semantic", "dist", "themes", "default", "assets"),
+      {from: path.join(__dirname, "node_modules", "semantic-ui", "dist", "semantic.min.css")},
+      {from: path.join(__dirname, "node_modules", "semantic-ui", "dist", "themes", "default", "assets"),
         to: "assets"}
     ]),
     new TsConfigPathsPlugin(/* { tsconfig, compiler } */)

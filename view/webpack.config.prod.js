@@ -56,16 +56,16 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif|svg)$/i,
-        loader: 'url?name=assets/images/[name].[ext]&limit=100000'
+        loader: 'url?name=/assets/images/[name].[ext]&limit=100000'
       },
       {
         test: /\.(svg|ttf|eot|woff|woff2)$/,
-        loader: 'file?name=assets/fonts/[name].[ext]',
+        loader: 'file?name=/assets/fonts/[name].[ext]',
         exclude: /\/src\/imgs\//
       },
       {
         test: /\.json$/,
-        loader: 'json?name=assets/data/[name].[ext]'
+        loader: 'json?name=/assets/data/[name].[ext]'
       },
       {
         test: /index\.html$/,

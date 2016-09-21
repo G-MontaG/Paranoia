@@ -2,8 +2,8 @@ import {Component} from '@angular/core';
 import {OnInit} from '@angular/core';
 
 @Component({
-  selector: 'menu',
-  template: require('./menu.component.html'),
+  selector: 'app-menu',
+  templateUrl: './menu.component.html',
   providers: []
 })
 export class MenuComponent implements OnInit {

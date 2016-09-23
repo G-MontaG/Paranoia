@@ -6,6 +6,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPlugin;
 
+const ENV = process.env.NODE_ENV = process.env.ENV = 'development';
+
 module.exports = {
   cache: true,
   watch: true,

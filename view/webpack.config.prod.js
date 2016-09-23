@@ -7,6 +7,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPlugin;
 
+const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
+
 module.exports = {
   cache: false,
   watch: false,
@@ -84,6 +86,13 @@ module.exports = {
       name: 'vendors',
       filename: 'vendors.js',
       minChunks: Infinity
+    }),
+    new webpack.NoErrorsPlugin(),
+    //new webpack.optimize.DedupePlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'ENV': JSON.stringify(ENV)
+      }
     }),
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
     new ExtractTextPlugin({

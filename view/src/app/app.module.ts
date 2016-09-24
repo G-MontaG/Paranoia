@@ -8,6 +8,7 @@ import {SuiModule} from 'ng2-semantic-ui/ng2-semantic-ui';
 import {AppComponent} from "./app.component";
 import {MenuComponent} from "./menu/menu.component";
 import {MainViewComponent} from "./main-view/main-view.component";
+import {FileEncryptionModule} from "./file-encryption/file-encryption.module";
 
 let options = {
   autoDismiss: true,
@@ -18,7 +19,7 @@ let options = {
   declarations: [
     AppComponent,
     MenuComponent,
-    MainViewComponent,
+    MainViewComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +27,8 @@ let options = {
     HttpModule,
     RouterModule.forRoot(routes, {useHash: true}),
     ReactiveFormsModule,
-    SuiModule
+    SuiModule,
+    FileEncryptionModule
   ],
   bootstrap: [AppComponent],
   providers: [

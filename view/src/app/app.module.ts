@@ -9,6 +9,7 @@ import {AppComponent} from "./app.component";
 import {MenuComponent} from "./menu/menu.component";
 import {MainViewComponent} from "./main-view/main-view.component";
 import {FileEncryptionModule} from "./file-encryption/file-encryption.module";
+import {KeyStorageModule} from "./key-storage/key-storage.module";
 
 let options = {
   autoDismiss: true,
@@ -28,7 +29,8 @@ let options = {
     RouterModule.forRoot(routes, {useHash: true}),
     ReactiveFormsModule,
     SuiModule,
-    FileEncryptionModule
+    FileEncryptionModule,
+    KeyStorageModule
   ],
   bootstrap: [AppComponent],
   providers: [

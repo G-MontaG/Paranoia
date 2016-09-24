@@ -4,6 +4,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 import {RouterModule} from "@angular/router";
 import {routes} from "./app.routes";
+import {SuiModule} from 'ng2-semantic-ui/ng2-semantic-ui';
 import {AppComponent} from "./app.component";
 import {MenuComponent} from "./menu/menu.component";
 import {MainViewComponent} from "./main-view/main-view.component";
@@ -25,6 +26,7 @@ let options = {
     HttpModule,
     RouterModule.forRoot(routes, {useHash: true}),
     ReactiveFormsModule,
+    SuiModule
   ],
   bootstrap: [AppComponent],
   providers: [

@@ -19,6 +19,7 @@ import 'moment';
 
 //JS library
 import 'toastr';
+//import 'ng2-semantic-ui/ng2-semantic-ui';
 
 //css
 import './vendors.scss';

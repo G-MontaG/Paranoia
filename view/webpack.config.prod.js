@@ -30,7 +30,8 @@ module.exports = {
       'rxjs/Rx',
       'lodash',
       'moment',
-      'toastr'
+      'toastr',
+      //'ng2-semantic-ui/ng2-semantic-ui'
     ]
   },
   output: {

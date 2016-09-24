@@ -31,7 +31,8 @@ module.exports = {
       'rxjs/Rx',
       'lodash',
       'moment',
-      'toastr'
+      'toastr',
+      //'ng2-semantic-ui/ng2-semantic-ui'
     ]
   },
   output: {
@@ -40,7 +41,8 @@ module.exports = {
     filename: "[name].js"
   },
   resolve: {
-    extensions: ['.ts', '.js']
+    extensions: ['.ts', '.js'],
+    modules: [ path.join(__dirname, "node_modules") ]
   },
   module: {
     loaders: [

@@ -1,6 +1,8 @@
 const {app, BrowserWindow} = require('electron');
 const client = require('electron-connect').client;
 
+require('./core');
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win;

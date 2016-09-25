@@ -11,7 +11,7 @@ const ENV = process.env.NODE_ENV = process.env.ENV = 'development';
 module.exports = {
   cache: true,
   watch: true,
-  profile: true,
+  profile: false,
 
   devtool: 'cheap-module-source-map',
   context: path.join(__dirname, "src"),
@@ -41,7 +41,7 @@ module.exports = {
     filename: "[name].js"
   },
   resolve: {
-    extensions: ['.ts', '.js'],
+    extensions: ['.ts', '.js', '.html'],
     modules: [ path.join(__dirname, "node_modules") ]
   },
   module: {
@@ -107,5 +107,6 @@ module.exports = {
         to: "assets"}
     ]),
     new TsConfigPathsPlugin(/* { tsconfig, compiler } */)
-  ]
+  ],
+  target: 'electron-renderer'
 };

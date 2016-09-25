@@ -10,6 +10,7 @@
     "@angular/platform-browser-dynamic": "^2.0.0",
     "@angular/platform-server": "2.0.0",
     "@angular/router": "3.0.0",
+    "electron": "^1.4.1",
     "font-awesome": "^4.6.3",
     "jquery": "^3.1.0",
     "lodash": "^4.15.0",

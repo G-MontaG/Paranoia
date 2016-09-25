@@ -40,7 +40,7 @@ module.exports = {
     filename: "[name].js"
   },
   resolve: {
-    extensions: ['.ts', '.js']
+    extensions: ['.ts', '.js', '.html']
   },
   module: {
     loaders: [
@@ -120,5 +120,6 @@ module.exports = {
         to: "assets"}
     ]),
     new TsConfigPathsPlugin(/* { tsconfig, compiler } */)
-  ]
+  ],
+  target: 'electron-renderer'
 };

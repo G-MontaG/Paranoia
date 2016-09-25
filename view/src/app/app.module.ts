@@ -12,6 +12,7 @@ import {FileEncryptionModule} from "./file-encryption/file-encryption.module";
 import {KeyStorageModule} from "./key-storage/key-storage.module";
 import {RsaModule} from "./rsa/rsa.module";
 import {SettingsModule} from "./settings/settings.module";
+import {AppConfigService} from "./services/app-config.service";
 
 let options = {
   autoDismiss: true,
@@ -38,7 +39,7 @@ let options = {
   ],
   bootstrap: [AppComponent],
   providers: [
-
+    AppConfigService
   ]
 })
 export class AppModule {

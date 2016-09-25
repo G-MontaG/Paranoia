@@ -1,8 +1,12 @@
-import './vendors.ts';
+import "./vendors.ts";
+import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
+import {createAppModule} from "./app/app.module";
+import {ipcRenderer} from "electron";
+import {appConfig} from "./app/services/app-config.model";
+import "./main.scss";
 
-import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
-import {AppModule} from './app/app.module';
+ipcRenderer.send('readConfigFile');
 
-import './main.scss';
-
-platformBrowserDynamic().bootstrapModule(AppModule);
+ipcRenderer.on('readConfigFile-reply', (event, arg: appConfig) => {
+  platformBrowserDynamic().bootstrapModule(createAppModule(arg));
+});

@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Inject} from '@angular/core';
 import {ipcRenderer} from 'electron';
 import {appConfig} from './app-config.model';
 
@@ -10,12 +10,8 @@ export class AppConfigService {
 
   private _isConfigChange: boolean = false;
 
-  constructor() {
-    ipcRenderer.send('readConfigFile');
-
-    ipcRenderer.on('readConfigFile-reply', (event, arg: appConfig) => {
-      this.readConfigFile(arg);
-    });
+  constructor(@Inject('config') private  config) {
+    this.readConfigFile(config);
   }
 
   public readConfigFile(arg: appConfig) {

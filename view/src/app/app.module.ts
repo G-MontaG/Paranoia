@@ -13,34 +13,40 @@ import {KeyStorageModule} from "./key-storage/key-storage.module";
 import {RsaModule} from "./rsa/rsa.module";
 import {SettingsModule} from "./settings/settings.module";
 import {AppConfigService} from "./services/app-config.service";
+import {appConfig} from "./services/app-config.model";
 
 let options = {
   autoDismiss: true,
   positionClass: 'toast-top-right',
 };
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    MenuComponent,
-    MainViewComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    RouterModule.forRoot(routes, {useHash: true}),
-    ReactiveFormsModule,
-    SuiModule,
-    FileEncryptionModule,
-    KeyStorageModule,
-    RsaModule,
-    SettingsModule
-  ],
-  bootstrap: [AppComponent],
-  providers: [
-    AppConfigService
-  ]
-})
-export class AppModule {
+export function createAppModule(arg: appConfig) {
+  @NgModule({
+    declarations: [
+      AppComponent,
+      MenuComponent,
+      MainViewComponent
+    ],
+    imports: [
+      BrowserModule,
+      FormsModule,
+      HttpModule,
+      RouterModule.forRoot(routes, {useHash: true}),
+      ReactiveFormsModule,
+      SuiModule,
+      FileEncryptionModule,
+      KeyStorageModule,
+      RsaModule,
+      SettingsModule
+    ],
+    bootstrap: [AppComponent],
+    providers: [
+      AppConfigService,
+      {provide: 'config', useValue: arg},
+    ]
+  })
+  class AppModule {
+  }
+
+  return AppModule;
 }

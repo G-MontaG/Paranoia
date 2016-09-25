@@ -1,25 +1,29 @@
 import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import {Subject} from 'rxjs/Subject';
 import {ipcRenderer} from 'electron';
+import {appConfig} from './app-config.model';
 
 @Injectable()
 export class AppConfigService {
-  private _fileManagementConfig: any;
+  private _fileManagementConfig: Subject = new Subject;
   private _keyStorageConfig: any;
   private _rsaConfig: any;
 
-  private _isConfigChange: boolean;
+  private _isConfigChange: boolean = false;
 
   constructor() {
     ipcRenderer.send('readConfigFile');
-    console.log("work");
 
-    ipcRenderer.on('readConfigFile-reply', (event, arg) => {
+    ipcRenderer.on('readConfigFile-reply', (event, arg: appConfig) => {
       this.readConfigFile(arg);
     });
   }
 
-  public readConfigFile(arg: any) {
-    console.log("readConfigFile", arg);
+  public readConfigFile(arg: appConfig) {
+    this._fileManagementConfig.next(arg.fileManagementConfig);
+    this._keyStorageConfig = arg.keyStorageConfig;
+    this._rsaConfig = arg.rsaConfig;
   }
 
   public writeConfigFile() {
@@ -27,7 +31,7 @@ export class AppConfigService {
   }
 
   public get fileManagementConfig() {
-    return this._fileManagementConfig;
+    return this._fileManagementConfig.asObservable();
   }
 
   public set fileManagementConfig(config: any) {

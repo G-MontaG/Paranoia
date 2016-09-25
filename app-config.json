@@ -1,0 +1,11 @@
+{
+  "fileManagementConfig": {
+    "someProperty": "value"
+  },
+  "keyStorageConfig": {
+
+  },
+  "rsaConfig": {
+
+  }
+}

@@ -40,7 +40,7 @@
     "start": "gulp start",
     "clear": "rm -rf build/*",
     "clear-doc": "rm -rf doc/*",
-    "core": "tsc --watch",
+    "core": "cp app-config.json build/app-config.json && tsc --watch",
     "core-doc": "webpack --config='webpack.config.doc.js' --progress",
     "view": "cd view/ && npm run dev",
     "view-prod": "cd view/ && npm run prod",

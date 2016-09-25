@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {OnInit} from '@angular/core';
+import {AppConfigService} from '../services/app-config.service';
 
 @Component({
   selector: 'settings',
@@ -7,7 +8,13 @@ import {OnInit} from '@angular/core';
   providers: []
 })
 export class SettingsComponent implements OnInit {
-  constructor() {
+  private fileManagementConfig = "dupa";
+
+  constructor(private appConfigService: AppConfigService) {
+    this.appConfigService.fileManagementConfig.subscribe(data => {
+      console.log(data);
+      this.fileManagementConfig = data;
+    });
   }
 
   ngOnInit() {

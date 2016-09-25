@@ -1,12 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {Subject} from 'rxjs/Subject';
 import {ipcRenderer} from 'electron';
 import {appConfig} from './app-config.model';
 
 @Injectable()
 export class AppConfigService {
-  private _fileManagementConfig: Subject = new Subject;
+  private _fileManagementConfig: any = {};
   private _keyStorageConfig: any;
   private _rsaConfig: any;
 
@@ -21,7 +19,7 @@ export class AppConfigService {
   }
 
   public readConfigFile(arg: appConfig) {
-    this._fileManagementConfig.next(arg.fileManagementConfig);
+    this._fileManagementConfig = arg.fileManagementConfig;
     this._keyStorageConfig = arg.keyStorageConfig;
     this._rsaConfig = arg.rsaConfig;
   }
@@ -31,7 +29,7 @@ export class AppConfigService {
   }
 
   public get fileManagementConfig() {
-    return this._fileManagementConfig.asObservable();
+    return this._fileManagementConfig;
   }
 
   public set fileManagementConfig(config: any) {

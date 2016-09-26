@@ -32,6 +32,7 @@ module.exports = {
       'lodash',
       'moment',
       'toastr',
+      'ng-semantic'
       //'ng2-semantic-ui/ng2-semantic-ui'
     ]
   },
@@ -91,6 +92,11 @@ module.exports = {
       minChunks: Infinity
     }),
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+      "window.jQuery": "jquery"
+    }),
     new ExtractTextPlugin({
       filename: "[name].css",
       disable: false,
@@ -102,7 +108,9 @@ module.exports = {
       favicon: 'favicon.ico'
     }),
     new CopyWebpackPlugin([
+      {from: path.join(__dirname, "node_modules", "jquery", "dist", "jquery.min.js")},
       {from: path.join(__dirname, "node_modules", "semantic-ui", "dist", "semantic.min.css")},
+      {from: path.join(__dirname, "node_modules", "semantic-ui", "dist", "semantic.min.js")},
       {from: path.join(__dirname, "node_modules", "semantic-ui", "dist", "themes", "default", "assets"),
         to: "assets"}
     ]),

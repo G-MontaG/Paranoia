@@ -31,6 +31,7 @@ module.exports = {
       'lodash',
       'moment',
       'toastr',
+      'ng-semantic'
       //'ng2-semantic-ui/ng2-semantic-ui'
     ]
   },

@@ -11,5 +11,6 @@ export class FileEncryptionComponent implements OnInit {
   }
 
   ngOnInit() {
+    //$('.ui.accordion').accordion();
   }
 }

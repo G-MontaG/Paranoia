@@ -5,24 +5,11 @@
     <meta http-equiv="Content-Language" content="en">
     <title>Paranoia</title>
 </head>
-
 <body>
 <app>
     <h5 class="text-center text-error">
         Loading...
     </h5>
 </app>
-<script>
-    window['old_module'] = window['module'];
-    delete window.module;
-</script>
-
-<script src="<%= webpackConfig.output.publicPath %>/jquery.min.js"></script>
-<script src="<%= webpackConfig.output.publicPath %>/semantic.min.js"></script>
-
-<script>
-    window['module'] = window['old_module'];
-    delete window.old_module;
-</script>
 </body>
 </html>

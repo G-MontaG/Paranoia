@@ -1,9 +1,0 @@
-.text-error {
-  color: $color-orange;
-}
-
-@for $i from 1 through 6 {
-  h#{$i} {
-    font-weight: 300;
-  }
-}

@@ -1,17 +1,10 @@
 @import "assets/styles/variables";
-@import "assets/styles/additional";
 
-@import "assets/mixin/truncate";
-@import "assets/mixin/shadow";
-@import "assets/mixin/clearfix";
-@import "assets/mixin/position";
-@import "assets/mixin/flex";
-
-@import "assets/styles/main";
-@import "assets/styles/navbar";
-@import "assets/styles/grid";
-@import "assets/styles/text-styles";
-@import "assets/styles/loader";
+@import "assets/styles/mixin/truncate";
+@import "assets/styles/mixin/shadow";
+@import "assets/styles/mixin/clearfix";
+@import "assets/styles/mixin/position";
+@import "assets/styles/mixin/flex";
 
 @import "app/app.component";
 @import "app/menu/menu.component";

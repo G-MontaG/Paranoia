@@ -14,11 +14,12 @@ import '@angular/router';
 
 import 'rxjs/Rx';
 
+//JS library
+//import 'jquery'
 import 'lodash';
 import 'moment';
-
-//JS library
 import 'toastr';
+import 'semantic-ui/dist/semantic.js'
 //import 'ng2-semantic-ui/ng2-semantic-ui';
 
 //css

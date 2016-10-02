@@ -5,7 +5,6 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPlugin;
-
 const ENV = process.env.NODE_ENV = process.env.ENV = 'development';
 
 module.exports = {
@@ -91,6 +90,11 @@ module.exports = {
       minChunks: Infinity
     }),
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
+    new webpack.ProvidePlugin({
+      $: "jquery/dist/jquery.min.js",
+      jQuery: "jquery/dist/jquery.min.js",
+      "window.jQuery": "jquery/dist/jquery.min.js"
+    }),
     new ExtractTextPlugin({
       filename: "[name].css",
       disable: false,
@@ -102,9 +106,7 @@ module.exports = {
       favicon: 'favicon.ico'
     }),
     new CopyWebpackPlugin([
-      {from: path.join(__dirname, "node_modules", "semantic-ui", "dist", "semantic.min.css")},
-      {from: path.join(__dirname, "node_modules", "semantic-ui", "dist", "themes", "default", "assets"),
-        to: "assets"}
+
     ]),
     new TsConfigPathsPlugin(/* { tsconfig, compiler } */)
   ],

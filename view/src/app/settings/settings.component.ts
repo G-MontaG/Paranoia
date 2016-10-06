@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {OnInit} from '@angular/core';
+import {OnInit, OnChanges} from '@angular/core';
 import {AppConfigService} from '../services/app-config.service';
 import {FormGroup, FormControl, Validators, FormGroupName, FormBuilder} from "@angular/forms";
 
@@ -8,12 +8,15 @@ import {FormGroup, FormControl, Validators, FormGroupName, FormBuilder} from "@a
   templateUrl: './settings.component.html',
   providers: []
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent implements OnInit, OnChanges {
   private settingsForm: FormGroup;
 
   private fileManagementConfig: FormGroup;
   private keyStorageConfig: FormGroup;
   private rsaConfig: FormGroup;
+
+  private statusSuccess = false;
+  private statusError = false;
 
   constructor(private appConfigService: AppConfigService) {
     this.createForm();
@@ -43,7 +46,18 @@ export class SettingsComponent implements OnInit {
   }
 
   saveConfig(event) {
-    this.appConfigService.writeConfigFile(this.settingsForm.value);
+    this.appConfigService.writeConfigFile(this.settingsForm.value).subscribe(
+      status => {
+        this.statusSuccess = true;
+      },
+      error => {
+        this.statusError = true;
+      }
+    );
+  }
+
+  ngOnChanges(changes) {
+    console.log(changes);
   }
 
   ngOnInit() {

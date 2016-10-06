@@ -1,7 +1,7 @@
 import {Injectable, Inject} from '@angular/core';
 import {ipcRenderer} from 'electron';
 import {appConfig} from './app-config.model';
-import {Subject, Observable} from "rxjs";
+import {Subject} from "rxjs";
 
 @Injectable()
 export class AppConfigService {
@@ -20,7 +20,6 @@ export class AppConfigService {
   }
 
   public writeConfigFile(config: appConfig) {
-    console.log("work");
     ipcRenderer.send('writeConfigFile', config);
 
     let response = new Subject();

@@ -1,7 +1,6 @@
 import {NgModule} from "@angular/core";
 import {BrowserModule} from "@angular/platform-browser";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HttpModule} from "@angular/http";
 import {RouterModule} from "@angular/router";
 import {routes} from "./app.routes";
 import {NgSemanticModule} from "ng-semantic";
@@ -31,7 +30,6 @@ export function createAppModule(arg: appConfig) {
     imports: [
       BrowserModule,
       FormsModule,
-      HttpModule,
       RouterModule.forRoot(routes, {useHash: true}),
       ReactiveFormsModule,
       NgSemanticModule,

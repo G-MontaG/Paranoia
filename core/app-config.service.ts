@@ -17,3 +17,14 @@ ipcMain.on('readConfigFile', (event, arg) => {
     }
   });
 });
+
+ipcMain.on('writeConfigFile', (event, arg) => {
+  fs.writeFile(path.join(__dirname, '..', 'app-config.json'), JSON.stringify(arg), (err, data) => {
+    if (err) {
+      err.message = "Error writing config file. Config file does not exist. " + err.message;
+      event.sender.send('writeConfigFile-reply', false);
+      throw err;
+    }
+    event.sender.send('writeConfigFile-reply', true);
+  });
+});

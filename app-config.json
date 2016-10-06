@@ -1,6 +1,6 @@
 {
   "fileManagementConfig": {
-    "someProperty": "value"
+    "root": "/path"
   },
   "keyStorageConfig": {
 

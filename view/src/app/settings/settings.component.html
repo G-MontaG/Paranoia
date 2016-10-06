@@ -1,3 +1,11 @@
 <div class="ui grid">
-  <div class="twelve wide column">{{fileManagementConfig?.someProperty}}</div>
+  <div class="twelve wide column">
+    <form [formGroup]="settingsForm" (submit)="saveConfig($event)" class="ui form">
+      <div [formGroup]="fileManagementConfig" class="field">
+        <label for="fileManagementConfig-root">File Management Root</label>
+        <input type="text" id="fileManagementConfig-root" formControlName="root" name="root" placeholder="path">
+      </div>
+      <button type="submit" class="ui button">Save</button>
+    </form>
+  </div>
 </div>

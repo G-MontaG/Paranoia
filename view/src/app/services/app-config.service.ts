@@ -1,14 +1,13 @@
 import {Injectable, Inject} from '@angular/core';
 import {ipcRenderer} from 'electron';
 import {appConfig} from './app-config.model';
+import {Subject, Observable} from "rxjs";
 
 @Injectable()
 export class AppConfigService {
   private _fileManagementConfig: any = {};
   private _keyStorageConfig: any;
   private _rsaConfig: any;
-
-  private _isConfigChange: boolean = false;
 
   constructor(@Inject('config') private  config) {
     this.readConfigFile(config);
@@ -20,8 +19,19 @@ export class AppConfigService {
     this._rsaConfig = arg.rsaConfig;
   }
 
-  public writeConfigFile() {
+  public writeConfigFile(config: appConfig) {
+    console.log("work");
+    ipcRenderer.send('writeConfigFile', config);
 
+    let response = new Subject();
+    ipcRenderer.on('writeConfigFile-reply', (event, arg: boolean) => {
+      this._fileManagementConfig = config.fileManagementConfig;
+      this._keyStorageConfig = config.keyStorageConfig;
+      this._rsaConfig = config.rsaConfig;
+      response.next(arg);
+      response.complete();
+    });
+    return response;
   }
 
   public get fileManagementConfig() {
@@ -29,7 +39,6 @@ export class AppConfigService {
   }
 
   public set fileManagementConfig(config: any) {
-    this._isConfigChange = true;
     this._fileManagementConfig = config;
   }
 
@@ -38,7 +47,6 @@ export class AppConfigService {
   }
 
   public set keyStorageConfig(config: any) {
-    this._isConfigChange = true;
     this._keyStorageConfig = config;
   }
 
@@ -47,11 +55,6 @@ export class AppConfigService {
   }
 
   public set rsaConfig(config: any) {
-    this._isConfigChange = true;
     this.rsaConfig = config;
-  }
-
-  public get isConfigChange() {
-    return this._isConfigChange;
   }
 }

@@ -1,5 +1,6 @@
 import {NgModule} from "@angular/core";
 import {RouterModule} from "@angular/router";
+import {ReactiveFormsModule, FormsModule} from "@angular/forms";
 import {routes} from "./settings.routes";
 import {SettingsComponent} from "./settings.component";
 
@@ -8,7 +9,9 @@ import {SettingsComponent} from "./settings.component";
     SettingsComponent
   ],
   imports: [
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [
 

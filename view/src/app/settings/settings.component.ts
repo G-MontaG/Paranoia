@@ -13,7 +13,7 @@ export class SettingsComponent implements OnInit {
 
   private fileManagementConfig: FormGroup;
   private keyStorageConfig: FormGroup;
-  private rsaConfig: FormGroup;
+  private connectionConfig: FormGroup;
 
   private statusSuccess = false;
 
@@ -29,19 +29,19 @@ export class SettingsComponent implements OnInit {
     this.keyStorageConfig = new FormGroup({
       root: new FormControl("", [Validators.required])
     });
-    this.rsaConfig = new FormGroup({
+    this.connectionConfig = new FormGroup({
       root: new FormControl("", [Validators.required])
     });
     this.settingsForm = new FormGroup({
       fileManagementConfig: this.fileManagementConfig,
       keyStorageConfig: this.keyStorageConfig,
-      rsaConfig: this.rsaConfig
+      connectionConfig: this.connectionConfig
     });
 
     this.settingsForm.patchValue({
       fileManagementConfig: this.appConfigService.fileManagementConfig,
       keyStorageConfig: this.appConfigService.keyStorageConfig,
-      rsaConfig: this.appConfigService.rsaConfig
+      connectionConfig: this.appConfigService.connectionConfig
     });
 
     this.settingsForm.valueChanges.subscribe(

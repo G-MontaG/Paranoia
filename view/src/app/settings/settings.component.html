@@ -9,9 +9,9 @@
         <label for="keyStorageConfig-root">Key Storage Root</label>
         <input type="text" id="keyStorageConfig-root" formControlName="root" placeholder="path">
       </div>
-      <div [formGroup]="rsaConfig" class="field">
-        <label for="rsaConfig-root">RSA Root</label>
-        <input type="text" id="rsaConfig-root" formControlName="root" placeholder="path">
+      <div [formGroup]="connectionConfig" class="field">
+        <label for="connectionConfig-root">Connection Root</label>
+        <input type="text" id="connectionConfig-root" formControlName="root" placeholder="path">
       </div>
       <button type="submit" class="ui button primary" [ngClass]="{'positive': statusSuccess}">
         <i class="fa fa-check" aria-hidden="true" *ngIf="statusSuccess"></i>

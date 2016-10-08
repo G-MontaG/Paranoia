@@ -7,7 +7,7 @@ import {Observable} from "rxjs";
 export class AppConfigService {
   private _fileManagementConfig: any = {};
   private _keyStorageConfig: any;
-  private _rsaConfig: any;
+  private _connectionConfig: any;
 
   constructor(@Inject('config') private  config) {
     this.readConfigFile(config);
@@ -16,7 +16,7 @@ export class AppConfigService {
   public readConfigFile(arg: appConfig) {
     this._fileManagementConfig = arg.fileManagementConfig;
     this._keyStorageConfig = arg.keyStorageConfig;
-    this._rsaConfig = arg.rsaConfig;
+    this._connectionConfig = arg.connectionConfig;
   }
 
   public writeConfigFile(config: appConfig) {
@@ -26,7 +26,7 @@ export class AppConfigService {
       ipcRenderer.on('writeConfigFile-reply', (event, arg: boolean) => {
         this._fileManagementConfig = config.fileManagementConfig;
         this._keyStorageConfig = config.keyStorageConfig;
-        this._rsaConfig = config.rsaConfig;
+        this._connectionConfig = config.connectionConfig;
         observer.next(arg);
         observer.complete();
       });
@@ -49,11 +49,11 @@ export class AppConfigService {
     this._keyStorageConfig = config;
   }
 
-  public get rsaConfig() {
-    return this._rsaConfig;
+  public get connectionConfig() {
+    return this._connectionConfig;
   }
 
-  public set rsaConfig(config: any) {
-    this.rsaConfig = config;
+  public set connectionConfig(config: any) {
+    this.connectionConfig = config;
   }
 }

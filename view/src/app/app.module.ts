@@ -10,7 +10,7 @@ import {MenuComponent} from "./menu/menu.component";
 import {MainViewComponent} from "./main-view/main-view.component";
 import {FileEncryptionModule} from "./file-encryption/file-encryption.module";
 import {KeyStorageModule} from "./key-storage/key-storage.module";
-import {RsaModule} from "./rsa/rsa.module";
+import {ConnectionModule} from "./connection/connection.module";
 import {SettingsModule} from "./settings/settings.module";
 import {AppConfigService} from "./services/app-config.service";
 import {appConfig} from "./services/app-config.model";
@@ -36,7 +36,7 @@ export function createAppModule(arg: appConfig) {
       //SuiModule,
       FileEncryptionModule,
       KeyStorageModule,
-      RsaModule,
+      ConnectionModule,
       SettingsModule
     ],
     bootstrap: [AppComponent],

@@ -46,7 +46,7 @@ function generateDefaultConfig() {
     keyStorageConfig: {
       root: "/path"
     },
-    rsaConfig: {
+    connectionConfig: {
       root: "/path"
     }
   };

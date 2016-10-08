@@ -1,11 +1,11 @@
 import {NgModule} from "@angular/core";
 import {RouterModule} from "@angular/router";
-import {routes} from "./rsa.routes";
-import {RsaComponent} from "./rsa.component";
+import {routes} from "./connection.routes";
+import {ConnectionComponent} from "./connection.component";
 
 @NgModule({
   declarations: [
-    RsaComponent
+    ConnectionComponent
   ],
   imports: [
     RouterModule.forChild(routes)
@@ -14,5 +14,5 @@ import {RsaComponent} from "./rsa.component";
 
   ]
 })
-export class RsaModule {
+export class ConnectionModule {
 }

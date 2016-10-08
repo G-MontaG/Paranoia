@@ -50,6 +50,7 @@ atlassian-ide-plugin.xml
 ### Project
 .env
 /build/
-typings/
+typings
 /doc/
 /view/semantic/
+/view/semantic.json

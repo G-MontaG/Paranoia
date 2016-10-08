@@ -48,6 +48,7 @@ export class SettingsComponent implements OnInit, OnChanges {
   saveConfig(event) {
     this.appConfigService.writeConfigFile(this.settingsForm.value).subscribe(
       status => {
+        console.log(this);
         this.statusSuccess = true;
       },
       error => {

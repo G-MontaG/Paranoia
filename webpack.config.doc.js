@@ -13,7 +13,7 @@ module.exports = {
     filename: "[name].js"
   },
   resolve: {
-    extensions: ['', '.ts']
+    extensions: ['.ts']
   },
   plugins: [
     new TypedocWebpackPlugin({

@@ -13,6 +13,8 @@
         <label for="rsaConfig-root">RSA Root</label>
         <input type="text" id="rsaConfig-root" formControlName="root" placeholder="path">
       </div>
+      {{statusSuccess}}
+      {{statusError}}
       <button type="submit" class="ui button primary" [ngClass]="{'positive': statusSuccess, 'negative': statusError}">
         <i class="fa fa-check" aria-hidden="true" *ngIf="statusSuccess"></i>
         <i class="fa fa-times" aria-hidden="true" *ngIf="statusError"></i>

@@ -4,11 +4,12 @@ const path = require('path');
 import {FileSystemService} from './file-system.service'
 
 ipcMain.on('readConfigFile', (event, arg) => {
-  let configPath = path.join(__dirname, '..', 'app-config.json')
-  if (!FileSystemService.checkPathExist(configPath)) {
-    generateDefaultConfig();
-  }
-  fs.readFile(path.join(__dirname, '..', 'app-config.json'), (err, data) => {
+  let configPath = path.join(__dirname, '..', 'app-config.json');
+  FileSystemService.checkPathExist(configPath).then(stat => {
+    if (!stat) {
+      return generateDefaultConfig();
+    }
+  }).then(fs.readFile(path.join(__dirname, '..', 'app-config.json'), (err, data) => {
     if (err) {
       err.message = "Error reading config file. Config file does not exist. " + err.message;
       throw err;
@@ -20,7 +21,7 @@ ipcMain.on('readConfigFile', (event, arg) => {
       err.message = "Error on parsing config file. " + err.message;
       throw err;
     }
-  });
+  }));
 });
 
 ipcMain.on('writeConfigFile', (event, arg) => {
@@ -46,10 +47,14 @@ function generateDefaultConfig() {
       root: "/path"
     }
   };
-  fs.writeFile(path.join(__dirname, '..', 'app-config.json'), JSON.stringify(defaultConfig, null, 2), (err, data) => {
-    if (err) {
-      err.message = "Error writing config file. " + err.message;
-      throw err;
-    }
+  return new Promise((resolve, reject) => {
+    fs.writeFile(path.join(__dirname, '..', 'app-config.json'), JSON.stringify(defaultConfig, null, 2), (err, data) => {
+      if (err) {
+        err.message = "Error writing config file. " + err.message;
+        reject();
+        throw err;
+      }
+      resolve();
+    });
   });
 }

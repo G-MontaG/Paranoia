@@ -1,14 +1,14 @@
-import {Component} from '@angular/core';
-import {OnInit, OnChanges} from '@angular/core';
+import {Component, ChangeDetectorRef} from '@angular/core';
+import {OnInit} from '@angular/core';
 import {AppConfigService} from '../services/app-config.service';
-import {FormGroup, FormControl, Validators, FormGroupName, FormBuilder} from "@angular/forms";
+import {FormGroup, FormControl, Validators} from "@angular/forms";
 
 @Component({
   selector: 'settings',
   templateUrl: './settings.component.html',
   providers: []
 })
-export class SettingsComponent implements OnInit, OnChanges {
+export class SettingsComponent implements OnInit {
   private settingsForm: FormGroup;
 
   private fileManagementConfig: FormGroup;
@@ -16,9 +16,9 @@ export class SettingsComponent implements OnInit, OnChanges {
   private rsaConfig: FormGroup;
 
   private statusSuccess = false;
-  private statusError = false;
 
-  constructor(private appConfigService: AppConfigService) {
+  constructor(private changeDetectorRef: ChangeDetectorRef,
+              private appConfigService: AppConfigService) {
     this.createForm();
   }
 
@@ -43,22 +43,20 @@ export class SettingsComponent implements OnInit, OnChanges {
       keyStorageConfig: this.appConfigService.keyStorageConfig,
       rsaConfig: this.appConfigService.rsaConfig
     });
+
+    this.settingsForm.valueChanges.subscribe(
+      data => {
+        this.statusSuccess = false;
+      });
   }
 
   saveConfig(event) {
     this.appConfigService.writeConfigFile(this.settingsForm.value).subscribe(
       status => {
-        console.log(this);
         this.statusSuccess = true;
-      },
-      error => {
-        this.statusError = true;
+        this.changeDetectorRef.detectChanges();
       }
     );
-  }
-
-  ngOnChanges(changes) {
-    console.log(changes);
   }
 
   ngOnInit() {

@@ -1,7 +1,7 @@
 import {Injectable, Inject} from '@angular/core';
 import {ipcRenderer} from 'electron';
 import {appConfig} from './app-config.model';
-import {Subject} from "rxjs";
+import {Observable} from "rxjs";
 
 @Injectable()
 export class AppConfigService {
@@ -22,15 +22,15 @@ export class AppConfigService {
   public writeConfigFile(config: appConfig) {
     ipcRenderer.send('writeConfigFile', config);
 
-    let response = new Subject();
-    ipcRenderer.on('writeConfigFile-reply', (event, arg: boolean) => {
-      this._fileManagementConfig = config.fileManagementConfig;
-      this._keyStorageConfig = config.keyStorageConfig;
-      this._rsaConfig = config.rsaConfig;
-      response.next(arg);
-      response.complete();
+    return new Observable(observer => {
+      ipcRenderer.on('writeConfigFile-reply', (event, arg: boolean) => {
+        this._fileManagementConfig = config.fileManagementConfig;
+        this._keyStorageConfig = config.keyStorageConfig;
+        this._rsaConfig = config.rsaConfig;
+        observer.next(arg);
+        observer.complete();
+      });
     });
-    return response;
   }
 
   public get fileManagementConfig() {

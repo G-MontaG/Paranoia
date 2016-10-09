@@ -1,6 +1,13 @@
 const fs = require('fs');
-const path = require('path');
+const pathModule = require('path');
 
+/**
+ * File system API service.
+ * This is adapted and promisified asynchronous functions from Node file system module.
+ * If you want to use synchronous function - use Node file system module directly.
+ * Use synchronous function carefully, they may block view.
+ * It makes sense to use synchronous function only inside other promise.
+ */
 export class FileSystemService {
   constructor() {
 
@@ -39,14 +46,95 @@ export class FileSystemService {
     });
   }
 
+  public static rename(oldPath: string | Buffer, newPath: string | Buffer) {
+    return new Promise((resolve, reject) => {
+      fs.rename(oldPath, newPath, () => {
+        resolve();
+      });
+    });
+  }
+
+  public static unlink(path: string | Buffer) {
+    return new Promise((resolve, reject) => {
+      fs.unlink(path, () => {
+        resolve();
+      });
+    });
+  }
+
   public static mkdir(path: string | Buffer, mode?: number) {
     return new Promise((resolve, reject) => {
-      fs.mkdir(path, mode, (err, stats) => {
+      fs.mkdir(path, mode, () => {
+        resolve();
+      });
+    });
+  }
+
+  public static rmdir(path: string | Buffer) {
+    return new Promise((resolve, reject) => {
+      this.readdir(path)
+        .then((files: Array<string>) => {
+          files.forEach((file) => {
+            let filename = pathModule.join(path, file);
+            let stat = fs.statSync(filename);
+            if(filename == "." || filename == "..") {
+              // pass these files
+            } else if(stat.isDirectory()) {
+              this.rmdir(filename);
+            } else {
+              fs.unlinkSync(filename);
+            }
+          });
+        })
+        .then(() => {
+          fs.rmdirSync(path);
+          resolve();
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  }
+
+  public static readdir(path: string | Buffer, options?: Object | string) {
+    return new Promise((resolve, reject) => {
+      fs.readdir(path, options, (err, files) => {
         if (err) {
           reject(err);
         }
-        resolve(stats);
+        resolve(files);
       });
+    });
+  }
+
+  public static copyFile(fromPath: string | Buffer, toPath: string | Buffer) {
+    return new Promise((resolve, reject) => {
+      let read = fs.createReadStream(fromPath);
+      read.on("error", function (err) {
+        reject(err);
+      });
+      var write = fs.createWriteStream(toPath);
+      write.on("error", function (err) {
+        reject(err);
+      });
+      write.on("close", function (ex) {
+        resolve();
+      });
+      read.pipe(write);
+    });
+  }
+
+  public static replaceFile(fromPath: string | Buffer, toPath: string | Buffer) {
+    return new Promise((resolve, reject) => {
+      this.copyFile(fromPath, toPath)
+        .then(() => {
+          return this.unlink(fromPath);
+        })
+        .then(() => {
+          resolve();
+        }).catch((err) => {
+          reject(err);
+        });
     });
   }
 }

@@ -2,6 +2,11 @@ const {ipcMain} = require('electron');
 const path = require('path');
 import {FileSystemService} from "./file-system.service";
 
+/**
+ * App config service.
+ * Don't use it directly. All function called by view.
+ * If config file doesn't exist, it create default.
+ */
 class AppConfig {
   private _configPath;
 

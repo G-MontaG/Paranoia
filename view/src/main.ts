@@ -5,8 +5,15 @@ import {ipcRenderer} from "electron";
 import {appConfig} from "./app/services/app-config.model";
 import "./main.scss";
 
+let appConfig;
+
 ipcRenderer.send('readConfigFile');
 
 ipcRenderer.on('readConfigFile-reply', (event, arg: appConfig) => {
-  platformBrowserDynamic().bootstrapModule(createAppModule(arg));
+  ipcRenderer.send('fileManagementInit');
+  appConfig = arg;
+});
+
+ipcRenderer.on('fileManagementInit-reply', (event, arg) => {
+  platformBrowserDynamic().bootstrapModule(createAppModule(appConfig));
 });

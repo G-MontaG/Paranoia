@@ -43,7 +43,7 @@ class AppConfigService {
         })
         .catch((err) => {
           err.message = "Error reading config file. " + err.message;
-          throw err;
+          event.sender.send('readConfigFile-reply', err);
         });
     });
   }
@@ -58,8 +58,7 @@ class AppConfigService {
         })
         .catch((err) => {
           err.message = "Error writing config file. " + err.message;
-          event.sender.send('writeConfigFile-reply', false);
-          throw err;
+          event.sender.send('writeConfigFile-reply', err);
         });
     });
   }

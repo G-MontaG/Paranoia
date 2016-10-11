@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {OnInit} from '@angular/core';
+import {ipcRenderer} from "electron";
 
 @Component({
   selector: 'file-encryption',
@@ -11,6 +12,10 @@ export class FileEncryptionComponent implements OnInit {
   }
 
   ngOnInit() {
-    //$('.ui.accordion').accordion();
+    ipcRenderer.send('fileManagementGetFiles', {type: 'encrypt', path: ''});
+
+    ipcRenderer.on('fileManagementGetFiles-reply', (event, files) => {
+      console.log(files);
+    });
   }
 }

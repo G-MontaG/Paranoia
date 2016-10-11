@@ -6,6 +6,7 @@ import {appConfigService} from "../app-config.service";
 class FileManagementService {
   constructor() {
     this._init();
+    this._getFiles();
   }
 
   private _init() {
@@ -17,7 +18,6 @@ class FileManagementService {
           }
         })
         .then(() => {
-
           return FileSystemService.stat(appConfigService.roots.fileManagement.decrypt);
         })
         .then((stats) => {
@@ -29,13 +29,40 @@ class FileManagementService {
           event.sender.send('fileManagementInit-reply', true);
         })
         .catch((err) => {
-          err.message = "Error reading config file. " + err.message;
-          throw err;
+          err.message = "Error create work folders. " + err.message;
+          event.sender.send('fileManagementInit-reply', err);
         });
     });
   }
 
-
+  private _getFiles() {
+    ipcMain.on('fileManagementGetFiles', (event, arg: {type: string, path: string}) => {
+      console.log(arg);
+      let currentPath;
+      if (arg.type === 'encrypt') {
+        console.log(appConfigService.roots.fileManagement.encrypt);
+        currentPath = path.join(appConfigService.roots.fileManagement.encrypt, arg.path);
+      } else {
+        currentPath = path.join(appConfigService.roots.fileManagement.decrypt, arg.path);
+      }
+      FileSystemService.stat(currentPath)
+        .then((stats) => {
+          if (!stats) {
+            event.sender.send('fileManagementGetFiles-reply', false);
+          }
+        })
+        .then(() => {
+          return FileSystemService.readdir(currentPath);
+        })
+        .then((files) => {
+          event.sender.send('fileManagementGetFiles-reply', files);
+        })
+        .catch((err) => {
+          err.message = "Error reading files from folder. " + err.message;
+          event.sender.send('fileManagementGetFiles-reply', err);
+        });
+    });
+  }
 }
 
 

@@ -155,6 +155,6 @@ export class FileSystemService {
   }
 
   public static getAppPath() {
-    return process.cwd();
+    return pathModule.join(process.cwd(), 'build');
   }
 }

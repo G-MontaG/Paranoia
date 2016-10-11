@@ -17,6 +17,7 @@ class FileManagementService {
           }
         })
         .then(() => {
+
           return FileSystemService.stat(appConfigService.roots.fileManagement.decrypt);
         })
         .then((stats) => {
@@ -33,6 +34,9 @@ class FileManagementService {
         });
     });
   }
+
+
 }
+
 
 new FileManagementService();

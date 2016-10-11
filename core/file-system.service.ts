@@ -1,5 +1,6 @@
 const fs = require('fs');
 const pathModule = require('path');
+const os = require('os');
 
 /**
  * File system API service.
@@ -64,9 +65,20 @@ export class FileSystemService {
 
   public static mkdir(path: string | Buffer, mode?: number) {
     return new Promise((resolve, reject) => {
-      fs.mkdir(path, mode, () => {
-        resolve();
-      });
+      function mkdirs(dirPath, mode) {
+        //Call the standard fs.mkdir
+        fs.mkdir(dirPath, mode, function(error: {code: string}) {
+          //When it fail in this way, do the custom steps
+          if (error && error.code === 'ENOENT') {
+            //Create all the parents recursively
+            mkdirs(pathModule.dirname(dirPath), mode);
+            //And then the directory
+            mkdirs(dirPath, mode);
+          }
+          resolve();
+        });
+      }
+      mkdirs(path, mode);
     });
   }
 
@@ -136,5 +148,13 @@ export class FileSystemService {
           reject(err);
         });
     });
+  }
+
+  public static getUserHomePath() {
+    return os.homedir();
+  }
+
+  public static getAppPath() {
+    return process.cwd();
   }
 }

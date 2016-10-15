@@ -1,6 +1,9 @@
-const {ipcMain} = require('electron');
-const path = require('path');
-const fs = require('fs');
+import moment = require("moment");
+import {ipcMain} from 'electron';
+import pathModule = require('path');
+import fs = require('fs');
+import _ = require('lodash');
+import fileSize = require('filesize');
 import {win} from "../../init";
 import {FileSystemService} from "../file-system.service";
 import {appConfigService} from "../app-config.service";
@@ -54,9 +57,9 @@ class FileManagementService {
     ipcMain.on(`fileManagementGetFiles-${type}`, (event, arg: string) => {
       let currentPath;
       if (type === 'encrypt') {
-        currentPath = path.join(appConfigService.fileManagement.encryptRoot, arg);
+        currentPath = pathModule.join(appConfigService.fileManagement.encryptRoot, arg);
       } else {
-        currentPath = path.join(appConfigService.fileManagement.decryptRoot, arg);
+        currentPath = pathModule.join(appConfigService.fileManagement.decryptRoot, arg);
       }
       FileSystemService.stat(currentPath)
         .then((stats) => {
@@ -70,8 +73,11 @@ class FileManagementService {
           }
           return FileSystemService.readdir(currentPath);
         })
-        .then((files) => {
-          event.sender.send(`fileManagementGetFiles-${type}-reply`, files);
+        .then((files: Array<string>) => {
+          return this._prepareFileList(currentPath, files);
+        })
+        .then((preparedFiles) => {
+          event.sender.send(`fileManagementGetFiles-${type}-reply`, preparedFiles);
         })
         .catch((err) => {
           err.message = "Error reading files from folder. " + err.message;
@@ -100,9 +106,34 @@ class FileManagementService {
     return false;
   }
 
-  private _prepareFileList(files: Array<string>) {
-
+  private _prepareFileList(path: string, files: Array<string>) {
+    return new Promise((resolve, reject) => {
+      let preparedFiles = [];
+      _.forEach(files, (file) => {
+        let fileInfo = fs.statSync(pathModule.join(path, file));
+        let fileType;
+        if(fileInfo.isFile()) {
+          fileType = 'file';
+        } else if(fileInfo.isDirectory()) {
+          fileType = 'dir';
+        } else {
+          fileType = null;
+        }
+        preparedFiles.push({
+          name: file,
+          type: fileType,
+          extension: pathModule.extname(file),
+          size: fileSize(fileInfo.size),
+          accessTime: moment(fileInfo.atime),
+          modifyTime: moment(fileInfo.mtime),
+          createTime: moment(fileInfo.ctime)
+        });
+      });
+      console.log(preparedFiles);
+      resolve(preparedFiles);
+    });
   }
 }
 
 new FileManagementService();
+

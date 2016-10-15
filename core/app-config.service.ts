@@ -1,5 +1,5 @@
-const {ipcMain} = require('electron');
-const path = require('path');
+import {ipcMain} from 'electron';
+import pathModule = require('path');
 import {FileSystemService} from "./file-system.service";
 import {appConfig} from "./app-config.model";
 
@@ -13,7 +13,7 @@ class AppConfigService {
   public config: appConfig;
 
   constructor() {
-    this._configPath = path.join(FileSystemService.getAppPath(), 'app-config.json');
+    this._configPath = pathModule.join(FileSystemService.getAppPath(), 'app-config.json');
 
     this._readConfigFile();
     this._writeConfigFile();
@@ -67,14 +67,14 @@ class AppConfigService {
     let self = this;
     let defaultConfig = {
       fileManagementConfig: {
-        encryptRoot: path.join(FileSystemService.getUserHomePath(), 'Paranoia', 'Encrypt'),
-        decryptRoot: path.join(FileSystemService.getUserHomePath(), 'Paranoia', 'Decrypt'),
+        encryptRoot: pathModule.join(FileSystemService.getUserHomePath(), 'Paranoia', 'Encrypt'),
+        decryptRoot: pathModule.join(FileSystemService.getUserHomePath(), 'Paranoia', 'Decrypt'),
       },
       keyStorageConfig: {
-        root: path.join(FileSystemService.getUserHomePath(), 'Paranoia', 'KeyStorage')
+        root: pathModule.join(FileSystemService.getUserHomePath(), 'Paranoia', 'KeyStorage')
       },
       connectionConfig: {
-        root: path.join(FileSystemService.getUserHomePath(), 'Paranoia', 'Connections')
+        root: pathModule.join(FileSystemService.getUserHomePath(), 'Paranoia', 'Connections')
       }
     };
     return FileSystemService.writeFile(self._configPath, JSON.stringify(defaultConfig, null, 2));

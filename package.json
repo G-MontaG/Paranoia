@@ -22,10 +22,14 @@
     "url": ""
   },
   "dependencies": {
-    "electron": "^1.4.3"
+    "electron": "^1.4.3",
+    "filesize": "^3.3.0",
+    "lodash": "^4.16.4",
+    "moment": "^2.15.1"
   },
   "devDependencies": {
     "@types/electron": "^1.4.24",
+    "@types/filesize": "^3.2.15",
     "@types/lodash": "^4.14.37",
     "@types/node": "^6.0.45",
     "electron-connect": "^0.6.0",

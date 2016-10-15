@@ -28,9 +28,12 @@ module.exports = {
       '@angular/http',
       '@angular/router',
       'rxjs/Rx',
+      'jquery/dist/jquery.js',
       'lodash',
       'moment',
       'toastr',
+      'semantic-ui/dist/semantic.js',
+      'ng-semantic'
       //'ng2-semantic-ui/ng2-semantic-ui'
     ]
   },
@@ -96,6 +99,17 @@ module.exports = {
       }
     }),
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
+    new webpack.ContextReplacementPlugin(
+      /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+      root('./src'),
+      {}
+    ),
+    new webpack.ProvidePlugin({
+      $: "jquery/dist/jquery.min.js",
+      jQuery: "jquery/dist/jquery.min.js",
+      "window.jQuery": "jquery/dist/jquery.min.js",
+      "moment": "moment"
+    }),
     new ExtractTextPlugin({
       filename: "[name].css",
       disable: false,

@@ -17,7 +17,7 @@ import '@angular/router';
 import 'rxjs/Rx';
 
 //JS library
-//import 'jquery'
+import 'jquery/dist/jquery.js'
 import 'lodash';
 import 'moment';
 import 'toastr';

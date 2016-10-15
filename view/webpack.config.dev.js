@@ -5,6 +5,7 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPlugin;
+
 const ENV = process.env.NODE_ENV = process.env.ENV = 'development';
 
 module.exports = {
@@ -28,9 +29,11 @@ module.exports = {
       '@angular/http',
       '@angular/router',
       'rxjs/Rx',
+      'jquery/dist/jquery.js',
       'lodash',
       'moment',
       'toastr',
+      'semantic-ui/dist/semantic.js',
       'ng-semantic'
       //'ng2-semantic-ui/ng2-semantic-ui'
     ]
@@ -91,10 +94,16 @@ module.exports = {
       minChunks: Infinity
     }),
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
+    new webpack.ContextReplacementPlugin(
+      /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+      path.join(__dirname, 'src'),
+      {}
+    ),
     new webpack.ProvidePlugin({
-      $: "jquery/dist/jquery.min.js",
-      jQuery: "jquery/dist/jquery.min.js",
-      "window.jQuery": "jquery/dist/jquery.min.js"
+      $: "jquery/dist/jquery.js",
+      jQuery: "jquery/dist/jquery.js",
+      "window.jQuery": "jquery/dist/jquery.js",
+      "moment": "moment"
     }),
     new ExtractTextPlugin({
       filename: "[name].css",

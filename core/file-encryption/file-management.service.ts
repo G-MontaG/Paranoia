@@ -1,11 +1,25 @@
 const {ipcMain} = require('electron');
 const path = require('path');
+const fs = require('fs');
+import {win} from "../../init";
 import {FileSystemService} from "../file-system.service";
 import {appConfigService} from "../app-config.service";
 
 class FileManagementService {
+  private _watch = {
+    encrypt: {
+      watcher: null,
+      path: null
+    },
+    decrypt: {
+      watcher: null,
+      path: null
+    }
+  };
+
   constructor() {
     this._init();
+
     this._getFiles('encrypt');
     this._getFiles('decrypt');
   }
@@ -51,6 +65,9 @@ class FileManagementService {
           }
         })
         .then(() => {
+          if (this._closeWatcher(currentPath, type)) {
+            this._createWatcher(currentPath, type);
+          }
           return FileSystemService.readdir(currentPath);
         })
         .then((files) => {
@@ -62,7 +79,27 @@ class FileManagementService {
         });
     });
   }
-}
 
+  private _createWatcher(path: string, type: string) {
+    this._watch[type].path = path;
+    this._watch[type].watcher = fs.watch(path, (eventType, filename) => {
+      if(eventType === 'change' || eventType === 'rename') {
+        console.log(eventType, filename);
+        win.webContents.send(`fileManagementChangeFiles-${type}`);
+      }
+    });
+  }
+
+  private _closeWatcher(path: string, type: string) {
+    if (this._watch[type].path !== path && !!this._watch[type].watcher) {
+      this._watch[type].watcher.close();
+      this._watch[type].path = null;
+      return true;
+    } else if(!this._watch[type].watcher) {
+      return true;
+    }
+    return false;
+  }
+}
 
 new FileManagementService();

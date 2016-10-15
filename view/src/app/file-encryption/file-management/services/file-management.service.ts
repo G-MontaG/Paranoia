@@ -8,6 +8,8 @@ export class FileManagementService {
 
   constructor(type: string) {
     this._type = type;
+    console.log(type);
+    this._watchFiles();
   }
 
   public getFiles(path: string = '') {
@@ -16,8 +18,13 @@ export class FileManagementService {
     return new Observable(observer => {
       ipcRenderer.on(`fileManagementGetFiles-${this._type}-reply`, (event, files) => {
         observer.next(files);
-        observer.complete();
       });
+    });
+  }
+
+  public _watchFiles() {
+    ipcRenderer.on(`fileManagementChangeFiles-${this._type}`, (event) => {
+      ipcRenderer.send(`fileManagementGetFiles-${this._type}`, '');
     });
   }
 }

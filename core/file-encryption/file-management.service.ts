@@ -6,7 +6,8 @@ import {appConfigService} from "../app-config.service";
 class FileManagementService {
   constructor() {
     this._init();
-    this._getFiles();
+    this._getFiles('encrypt');
+    this._getFiles('decrypt');
   }
 
   private _init() {
@@ -35,31 +36,29 @@ class FileManagementService {
     });
   }
 
-  private _getFiles() {
-    ipcMain.on('fileManagementGetFiles', (event, arg: {type: string, path: string}) => {
-      console.log(arg);
+  private _getFiles(type: string) {
+    ipcMain.on(`fileManagementGetFiles-${type}`, (event, arg: string) => {
       let currentPath;
-      if (arg.type === 'encrypt') {
-        console.log(appConfigService.fileManagement.encryptRoot);
-        currentPath = path.join(appConfigService.fileManagement.encryptRoot, arg.path);
+      if (type === 'encrypt') {
+        currentPath = path.join(appConfigService.fileManagement.encryptRoot, arg);
       } else {
-        currentPath = path.join(appConfigService.fileManagement.decryptRoot, arg.path);
+        currentPath = path.join(appConfigService.fileManagement.decryptRoot, arg);
       }
       FileSystemService.stat(currentPath)
         .then((stats) => {
           if (!stats) {
-            event.sender.send('fileManagementGetFiles-reply', false);
+            event.sender.send(`fileManagementGetFiles-${type}-reply`, false);
           }
         })
         .then(() => {
           return FileSystemService.readdir(currentPath);
         })
         .then((files) => {
-          event.sender.send('fileManagementGetFiles-reply', files);
+          event.sender.send(`fileManagementGetFiles-${type}-reply`, files);
         })
         .catch((err) => {
           err.message = "Error reading files from folder. " + err.message;
-          event.sender.send('fileManagementGetFiles-reply', err);
+          event.sender.send(`fileManagementGetFiles-${type}-reply`, err);
         });
     });
   }

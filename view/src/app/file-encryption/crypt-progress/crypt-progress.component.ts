@@ -2,15 +2,14 @@ import {Component} from '@angular/core';
 import {OnInit} from '@angular/core';
 
 @Component({
-  selector: 'file-encryption',
-  templateUrl: './file-encryption.component.html',
+  selector: 'crypt-progress',
+  templateUrl: './crypt-progress.component.html',
   providers: []
 })
-export class FileEncryptionComponent implements OnInit {
+export class CryptProgressComponent implements OnInit {
   constructor() {
   }
 
   ngOnInit() {
-
   }
 }

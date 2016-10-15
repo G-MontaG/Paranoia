@@ -84,7 +84,6 @@ class FileManagementService {
     this._watch[type].path = path;
     this._watch[type].watcher = fs.watch(path, (eventType, filename) => {
       if(eventType === 'change' || eventType === 'rename') {
-        console.log(eventType, filename);
         win.webContents.send(`fileManagementChangeFiles-${type}`);
       }
     });
@@ -99,6 +98,10 @@ class FileManagementService {
       return true;
     }
     return false;
+  }
+
+  private _prepareFileList(files: Array<string>) {
+
   }
 }
 

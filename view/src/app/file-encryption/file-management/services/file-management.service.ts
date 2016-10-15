@@ -8,7 +8,6 @@ export class FileManagementService {
 
   constructor(type: string) {
     this._type = type;
-    console.log(type);
     this._watchFiles();
   }
 

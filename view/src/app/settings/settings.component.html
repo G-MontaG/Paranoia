@@ -2,8 +2,12 @@
   <div class="twelve wide column">
     <form [formGroup]="settingsForm" (submit)="saveConfig($event)" class="ui form">
       <div [formGroup]="fileManagementConfig" class="field">
-        <label for="fileManagementConfig-root">File Management Root</label>
-        <input type="text" id="fileManagementConfig-root" formControlName="root" placeholder="path">
+          <label for="fileManagementConfig-encryptRoot">File Management Encrypt Root</label>
+          <input type="text" id="fileManagementConfig-encryptRoot" formControlName="encryptRoot" placeholder="path">
+      </div>
+      <div [formGroup]="fileManagementConfig" class="field">
+        <label for="fileManagementConfig-decryptRoot">File Management Decrypt Root</label>
+        <input type="text" id="fileManagementConfig-decryptRoot" formControlName="decryptRoot" placeholder="path">
       </div>
       <div [formGroup]="keyStorageConfig" class="field">
         <label for="keyStorageConfig-root">Key Storage Root</label>

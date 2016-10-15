@@ -1,5 +1,14 @@
 export interface appConfig {
-  fileManagementConfig: Object,
-  keyStorageConfig: Object,
-  connectionConfig: Object
+  fileManagementConfig: {
+    root: {
+      encrypt: string,
+      decrypt: string
+    }
+  },
+  keyStorageConfig: {
+    root: string
+  },
+  connectionConfig: {
+    root: string
+  }
 }

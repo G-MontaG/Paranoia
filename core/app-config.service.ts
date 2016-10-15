@@ -67,10 +67,8 @@ class AppConfigService {
     let self = this;
     let defaultConfig = {
       fileManagementConfig: {
-        root: {
-          encrypt: path.join(FileSystemService.getUserHomePath(), 'Paranoia', 'Encrypt'),
-          decrypt: path.join(FileSystemService.getUserHomePath(), 'Paranoia', 'Decrypt'),
-        }
+        encryptRoot: path.join(FileSystemService.getUserHomePath(), 'Paranoia', 'Encrypt'),
+        decryptRoot: path.join(FileSystemService.getUserHomePath(), 'Paranoia', 'Decrypt'),
       },
       keyStorageConfig: {
         root: path.join(FileSystemService.getUserHomePath(), 'Paranoia', 'KeyStorage')
@@ -82,16 +80,16 @@ class AppConfigService {
     return FileSystemService.writeFile(self._configPath, JSON.stringify(defaultConfig, null, 2));
   }
 
-  public get roots() {
-    let self = this;
-    return {
-      fileManagement: {
-        encrypt: self.config.fileManagementConfig.root.encrypt,
-        decrypt: self.config.fileManagementConfig.root.decrypt
-      },
-      keyStorage: self.config.keyStorageConfig.root,
-      connection: self.config.connectionConfig.root
-    }
+  public get fileManagement() {
+    return this.config.fileManagementConfig;
+  }
+
+  public get keyStorage() {
+    return this.config.keyStorageConfig;
+  }
+
+  public get connection() {
+    return this.config.connectionConfig;
   }
 }
 

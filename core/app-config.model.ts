@@ -1,9 +1,7 @@
 export interface appConfig {
   fileManagementConfig: {
-    root: {
-      encrypt: string,
-      decrypt: string
-    }
+    encryptRoot: string,
+    decryptRoot: string
   },
   keyStorageConfig: {
     root: string

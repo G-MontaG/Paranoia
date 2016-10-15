@@ -1,6 +1,5 @@
-import {Component, ChangeDetectorRef} from '@angular/core';
-import {OnInit} from '@angular/core';
-import {AppConfigService} from '../services/app-config.service';
+import {Component, ChangeDetectorRef, OnInit} from "@angular/core";
+import {AppConfigService} from "../services/app-config.service";
 import {FormGroup, FormControl, Validators} from "@angular/forms";
 
 @Component({
@@ -24,7 +23,8 @@ export class SettingsComponent implements OnInit {
 
   createForm() {
     this.fileManagementConfig = new FormGroup({
-      root: new FormControl("", [Validators.required])
+      encryptRoot: new FormControl("", [Validators.required]),
+      decryptRoot: new FormControl("", [Validators.required])
     });
     this.keyStorageConfig = new FormGroup({
       root: new FormControl("", [Validators.required])

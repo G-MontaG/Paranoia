@@ -17,24 +17,32 @@ export class FileManagementComponent implements OnInit {
   public encryptList: Array<AbstractFileModel>;
   public decryptList: Array<AbstractFileModel>;
 
+  private subscribers = [];
+
   constructor(private _changeDetection: ChangeDetectorRef) {
     this._encryptFileList = new FileListService('encrypt');
     this._decryptFileList = new FileListService('decrypt');
   }
 
   ngOnInit() {
-    this._encryptFileList.getList().subscribe(
+    this.subscribers.push(this._encryptFileList.getList().subscribe(
       (list: Array<AbstractFileModel>) => {
         this.encryptList = list;
         this._changeDetection.detectChanges();
       }
-    );
+    ));
 
-    this._decryptFileList.getList().subscribe(
+    this.subscribers.push(this._decryptFileList.getList().subscribe(
       (list: Array<AbstractFileModel>) => {
         this.decryptList = list;
         this._changeDetection.detectChanges();
       }
-    );
+    ));
+  }
+
+  ngOnDestroy() {
+    _.forEach(this.subscribers, item => {
+      item.unsubscribe();
+    });
   }
 }

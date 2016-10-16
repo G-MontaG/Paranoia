@@ -16,6 +16,8 @@ export class SettingsComponent implements OnInit {
 
   private statusSuccess = false;
 
+  private subscribers = [];
+
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private appConfigService: AppConfigService) {
     this.createForm();
@@ -51,14 +53,20 @@ export class SettingsComponent implements OnInit {
   }
 
   saveConfig(event) {
-    this.appConfigService.writeConfigFile(this.settingsForm.value).subscribe(
+    this.subscribers.push(this.appConfigService.writeConfigFile(this.settingsForm.value).subscribe(
       status => {
         this.statusSuccess = true;
         this.changeDetectorRef.detectChanges();
       }
-    );
+    ));
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    _.forEach(this.subscribers, item => {
+      item.unsubscribe();
+    });
   }
 }

@@ -129,7 +129,6 @@ class FileManagementService {
           createTime: moment(fileInfo.ctime)
         });
       });
-      console.log(preparedFiles);
       resolve(preparedFiles);
     });
   }

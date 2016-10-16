@@ -1,8 +1,16 @@
 <div class="ui grid">
-  <div class="seven wide column" *ngFor="let file of filesEncrypted">
-    {{file.name}}
+  <div class="seven wide column" *ngFor="let file of encryptList">
+    <div class="file" ngClass="{'file__file-type': file.type === 'file',
+    'file__dir-type': file.type === 'dir'}">
+      <i class="file__icon">df</i>
+      {{file.name}}
+    </div>
   </div>
-  <div class="seven wide column" *ngFor="let file of filesDecrypted">
-    {{file.name}}
+  <div class="seven wide column" *ngFor="let file of decryptList">
+    <div class="file" ngClass="{'file__file-type': file.type === 'file',
+    'file__dir-type': file.type === 'dir'}">
+      <i class="file__icon">df</i>
+      {{file.name}}
+    </div>
   </div>
 </div>

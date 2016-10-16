@@ -3,6 +3,7 @@ import {OnInit} from '@angular/core';
 import {FileManagementService} from "./services/file-management.service";
 import {FileListService} from "./services/file-list.service";
 import {fileInfo} from "./services/file-info.model";
+import {AbstractFileModel} from "./services/abstract-file.model";
 
 @Component({
   selector: 'file-management',
@@ -10,48 +11,30 @@ import {fileInfo} from "./services/file-info.model";
   providers: []
 })
 export class FileManagementComponent implements OnInit {
-  private _encryptFileManagement: FileManagementService;
-  private _decryptFileManagement: FileManagementService;
-
   private _encryptFileList: FileListService;
   private _decryptFileList: FileListService;
 
-  public encryptList;
-  public decryptList;
+  public encryptList: Array<AbstractFileModel>;
+  public decryptList: Array<AbstractFileModel>;
 
   constructor(private _changeDetection: ChangeDetectorRef) {
-    this._encryptFileManagement = new FileManagementService("encrypt");
-    this._decryptFileManagement = new FileManagementService("decrypt");
-
-    this._encryptFileList = new FileListService();
-    this._decryptFileList = new FileListService();
+    this._encryptFileList = new FileListService('encrypt');
+    this._decryptFileList = new FileListService('decrypt');
   }
 
   ngOnInit() {
     this._encryptFileList.getList().subscribe(
-      list => {
+      (list: Array<AbstractFileModel>) => {
         this.encryptList = list;
         this._changeDetection.detectChanges();
       }
     );
 
     this._decryptFileList.getList().subscribe(
-      list => {
+      (list: Array<AbstractFileModel>) => {
         this.decryptList = list;
         this._changeDetection.detectChanges();
       }
     );
-
-    this._encryptFileManagement.getFiles().subscribe(
-      (files: Array<fileInfo>) => {
-        this._encryptFileList.setList(files);
-      }
-    );
-
-    this._decryptFileManagement.getFiles().subscribe(
-      (files: Array<fileInfo>) => {
-        this._decryptFileList.setList(files);
-      }
-    )
   }
 }

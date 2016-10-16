@@ -1,16 +1,20 @@
 <div class="ui grid">
-  <div class="seven wide column" *ngFor="let file of encryptList">
-    <div class="file" ngClass="{'file__file-type': file.type === 'file',
-    'file__dir-type': file.type === 'dir'}">
-      <i class="file__icon">df</i>
-      {{file.name}}
+  <div class="seven wide column" >
+    <div class="file" *ngFor="let file of encryptList"
+         [ngClass]="{'file__file-type': file.type === 'file', 'file__dir-type': file.type === 'dir'}">
+      <i class="fa fa-file" aria-hidden="true" *ngIf="file.type === 'file'"></i>
+      <i class="fa fa-folder" aria-hidden="true" *ngIf="file.type === 'dir'"></i>
+      <i class="fa fa-file-o" aria-hidden="true" *ngIf="file.type === null"></i>
+      <div class="file__name">{{file.name}}</div>
     </div>
   </div>
-  <div class="seven wide column" *ngFor="let file of decryptList">
-    <div class="file" ngClass="{'file__file-type': file.type === 'file',
-    'file__dir-type': file.type === 'dir'}">
-      <i class="file__icon">df</i>
-      {{file.name}}
+  <div class="seven wide column" >
+    <div class="file" *ngFor="let file of decryptList"
+         [ngClass]="{'file__file-type': file.type === 'file', 'file__dir-type': file.type === 'dir'}">
+      <i class="fa fa-file" aria-hidden="true" *ngIf="file.type === 'file'"></i>
+      <i class="fa fa-folder" aria-hidden="true" *ngIf="file.type === 'dir'"></i>
+      <i class="fa fa-file-o" aria-hidden="true" *ngIf="file.type === null"></i>
+      <div class="file__name">{{file.name}}</div>
     </div>
   </div>
 </div>

@@ -101,7 +101,7 @@ module.exports = {
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
     new webpack.ContextReplacementPlugin(
       /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
-      root('./src'),
+      path.join(__dirname, 'src'),
       {}
     ),
     new webpack.ProvidePlugin({
@@ -129,9 +129,7 @@ module.exports = {
       favicon: 'favicon.ico'
     }),
     new CopyWebpackPlugin([
-      {from: path.join(__dirname, "node_modules", "semantic-ui", "dist", "semantic.min.css")},
-      {from: path.join(__dirname, "node_modules", "semantic-ui", "dist", "themes", "default", "assets"),
-        to: "assets"}
+
     ]),
     new TsConfigPathsPlugin(/* { tsconfig, compiler } */)
   ],

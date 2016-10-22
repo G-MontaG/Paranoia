@@ -1,5 +1,3 @@
-
-
 // Polyfills
 import 'reflect-metadata';
 require('zone.js/dist/zone');
@@ -21,7 +19,7 @@ import 'jquery/dist/jquery.js'
 import 'lodash';
 import 'moment';
 import 'toastr';
-import 'semantic-ui/dist/semantic.js'
+import 'semantic-ui/dist/semantic.js';
 import 'ng-semantic';
 //import 'ng2-semantic-ui/ng2-semantic-ui';
 

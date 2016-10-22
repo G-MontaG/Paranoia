@@ -1,5 +1,26 @@
 interface JQuery {
   accordion(options?: any): JQuery;
+  api(options?: any): JQuery;
+  checkbox(options?: any): JQuery;
+  colorize(options?: any): JQuery;
+  dimmer(options?: any): JQuery;
+  dropdown(options?: any): JQuery;
+  embed(options?: any): JQuery;
+  form(options?: any): JQuery;
+  modal(options?: any): JQuery;
+  nag(options?: any): JQuery;
+  popup(options?: any): JQuery;
+  progress(options?: any): JQuery;
+  rating(options?: any): JQuery;
+  search(options?: any): JQuery;
+  shape(options?: any): JQuery;
+  sidebar(options?: any): JQuery;
+  site(options?: any): JQuery;
+  state(options?: any): JQuery;
+  sticky(options?: any): JQuery;
+  tab(options?: any): JQuery;
+  transition(options?: any): JQuery;
+  video(options?: any): JQuery;
+  visibility(options?: any): JQuery;
+  visit(options?: any): JQuery;
 }
-
-declare var html2canvas: JQueryStatic;

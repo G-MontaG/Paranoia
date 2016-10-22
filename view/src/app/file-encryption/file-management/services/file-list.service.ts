@@ -17,11 +17,10 @@ export class FileListService {
     _.forEach(files, (file) => {
       _currentList.push(AbstractFileCreatorService.getCreator(file).create(file));
     });
-    console.log("set");
     return _currentList;
   }
 
-  public static getSelectedList(list: Array<AbstractFileModel>) {
+  public getSelectedList(list: Array<AbstractFileModel>) {
     let selectedFiles = [];
     _.forEach(list, (file) => {
       if(file.isSelected()) {
@@ -29,6 +28,14 @@ export class FileListService {
       }
     });
     return selectedFiles;
+  }
+
+  public unselectedList(event: Event, list: Array<AbstractFileModel>) {
+    event.stopPropagation();
+    _.forEach(list, (file) => {
+      file.selected = false;
+    });
+    return list;
   }
 
   public selectFilesByShift(list: Array<AbstractFileModel>, fromIndex:number, toIndex:number) {

@@ -2,14 +2,18 @@
   @include flex-container(inline-flex, $justify-content: center, $flex-wrap: wrap);
   width: 100px;
   margin: 5px;
+  z-index: 2;
   i {
     display: block;
     font-size: 40px;
+    cursor: pointer;
+    pointer-events: all;
   }
   &__name {
     @include truncate();
     width: 100%;
     text-align: center;
+    cursor: pointer;
   }
   &__file-type {
 
@@ -17,5 +21,14 @@
 
   &__dir-type {
 
+  }
+
+  &--selected {
+    i {
+      background-color: lightblue;
+    }
+    .file__name {
+      background-color: lightblue;
+    }
   }
 }

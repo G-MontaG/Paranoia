@@ -13,7 +13,8 @@ export class DirectoryCreatorService {
       isSelected() {
         return this.selected;
       },
-      switchSelection() {
+      switchSelection(event) {
+        event.stopPropagation();
         this.selected = !this.selected;
       }
     });

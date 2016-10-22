@@ -1,18 +1,50 @@
-<div class="ui grid">
-  <div class="seven wide column" >
-    <div class="file" *ngFor="let file of encryptList"
-         [ngClass]="{'file__file-type': file.type === 'file', 'file__dir-type': file.type === 'dir', 'file__unknown-type': file.type === null}">
-      <i class="fa fa-file" aria-hidden="true"
-         [ngClass]="{'fa-file': file.type === 'file', 'fa-folder': file.type === 'dir', 'fa-file-o': file.type === null}"></i>
-      <div class="file__name">{{file.name}}</div>
+<div class="file-management">
+  <div class="file-management__encrypt"
+       (click)="encryptFileList.unselectedList($event, encryptList)">
+    <div class="file-management__encrypt-list">
+      <div class="file" *ngFor="let file of encryptList"
+           [ngClass]="{'file__file-type': file.type === 'file',
+         'file__dir-type': file.type === 'dir',
+         'file__unknown-type': file.type === null,
+         'file--selected': file.isSelected()}">
+        <i class="fa" aria-hidden="true" [ngClass]="{'fa-file': file.type === 'file',
+         'fa-folder': file.type === 'dir',
+         'fa-file-o': file.type === null}"
+           (click)="file.switchSelection($event)"></i>
+        <div class="file__name"
+             (click)="file.switchSelection($event)">
+          {{file.name}}
+        </div>
+      </div>
+    </div>
+    <div class="file-management__encrypt-btn">
+      <button class="ui primary button">
+        Encrypt
+      </button>
     </div>
   </div>
-  <div class="seven wide column" >
-    <div class="file" *ngFor="let file of decryptList"
-         [ngClass]="{'file__file-type': file.type === 'file', 'file__dir-type': file.type === 'dir', 'file__unknown-type': file.type === null}">
-      <i class="fa fa-file" aria-hidden="true"
-         [ngClass]="{'fa-file': file.type === 'file', 'fa-folder': file.type === 'dir', 'fa-file-o': file.type === null}"></i>
-      <div class="file__name">{{file.name}}</div>
+  <div class="file-management__decrypt">
+    <div class="file-management__decrypt-list"
+         (click)="decryptFileList.unselectedList($event, decryptList)">
+      <div class="file" *ngFor="let file of decryptList"
+           [ngClass]="{'file__file-type': file.type === 'file',
+         'file__dir-type': file.type === 'dir',
+         'file__unknown-type': file.type === null,
+         'file--selected': file.isSelected()}">
+        <i class="fa" aria-hidden="true" [ngClass]="{'fa-file': file.type === 'file',
+         'fa-folder': file.type === 'dir',
+         'fa-file-o': file.type === null}"
+           (click)="file.switchSelection($event)"></i>
+        <div class="file__name"
+             (click)="file.switchSelection($event)">
+          {{file.name}}
+        </div>
+      </div>
+    </div>
+    <div class="file-management__decrypt-btn">
+      <button class="ui primary button">
+        Decrypt
+      </button>
     </div>
   </div>
 </div>

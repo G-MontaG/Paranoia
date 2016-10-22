@@ -1,0 +1,23 @@
+.file-management {
+  height: 100%;
+  @include flex-container(flex, $align-items: stretch, $flex-wrap: nowrap);
+  &__encrypt {
+    border-right: 1px solid black;
+  }
+  &__encrypt,
+  &__decrypt {
+    width: 50%;
+    @include flex-container(flex, $align-items: stretch, $flex-wrap: nowrap, $flex-direction: column);
+  }
+  &__encrypt-list,
+  &__decrypt-list {
+    padding: 15px;
+    @include flex-item($flex: 1 1 auto);
+  }
+  &__encrypt-btn,
+  &__decrypt-btn {
+    height: 66px;
+    padding: 15px;
+    text-align: right;
+  }
+}

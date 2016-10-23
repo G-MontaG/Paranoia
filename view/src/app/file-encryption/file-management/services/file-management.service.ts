@@ -2,13 +2,14 @@ import {Injectable} from '@angular/core';
 import {ipcRenderer} from "electron";
 import {Observable} from "rxjs";
 import path = require('path');
+import _ = require('lodash');
 
 @Injectable()
 export class FileManagementService {
   private _type: string;
 
   private _state: Array<string> = [];
-  private _currentStateIndex: number = this._state.length - 1;
+  private _currentStateIndex: number = -1;
 
   constructor(type: string) {
     this._type = type;
@@ -36,14 +37,18 @@ export class FileManagementService {
     });
   }
 
-  public getPreviousState(): string | null {
-    this._currentStateIndex--;
-    return this._state[this._currentStateIndex] ? this._state[this._currentStateIndex] : null;
+  public getPreviousState() {
+    if(this._currentStateIndex > 0) {
+      this._currentStateIndex--;
+    }
+    this.getFiles(this.getCurrentState());
   };
 
-  public getNextState(): string | null {
-    this._currentStateIndex++;
-    return this._state[this._currentStateIndex] ? this._state[this._currentStateIndex] : null;
+  public getNextState() {
+    if(this._currentStateIndex < this._state.length - 1) {
+      this._currentStateIndex++;
+    }
+    this.getFiles(this.getCurrentState());
   };
 
   public getCurrentState(): string {
@@ -51,12 +56,27 @@ export class FileManagementService {
   };
 
   public setNewState(state:string) {
-    this._state.push(state);
+    console.log(this._currentStateIndex);
+    console.log(this._state.length - 1);
+    if (this._currentStateIndex === this._state.length - 1) {
+      this._state.push(state);
+      this.sliceStateArray();
+    } else {
+      console.log("here");
+      this._state = _.take(this._state, this._currentStateIndex + 1);
+      this._state.push(state);
+    }
     this._currentStateIndex = this._state.length - 1;
+    console.log(this._state);
   };
 
+  private sliceStateArray() {
+    if(this._state.length > 5) {
+      this._state = _.drop(this._state);
+    }
+  }
+
   public enterDir(name: string) {
-    console.log(name);
     let newPath = path.join(this.getCurrentState(), name);
     this.getFiles(newPath);
     this.setNewState(newPath);

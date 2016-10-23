@@ -1,7 +1,17 @@
 <div class="file-management">
-  <div class="file-management__encrypt"
-       (click)="encryptFileList.unselectedList($event, encryptList)">
-    <div class="file-management__encrypt-list">
+  <div class="file-management__encrypt">
+    <div class="file-management__encrypt-nav">
+      <button class="ui primary button"
+              (click)="encryptFileManagement.getPreviousState()">
+        Prev
+      </button>
+      <button class="ui primary button"
+              (click)="encryptFileManagement.getNextState()">
+        Next
+      </button>
+    </div>
+    <div class="file-management__encrypt-list"
+         (click)="encryptFileList.unselectedList($event, encryptList)">
       <div class="file" *ngFor="let file of encryptList"
            [ngClass]="{'file__file-type': file.type === 'file',
          'file__dir-type': file.type === 'dir',
@@ -26,6 +36,16 @@
     </div>
   </div>
   <div class="file-management__decrypt">
+    <div class="file-management__decrypt-nav">
+      <button class="ui primary button"
+              (click)="decryptFileManagement.getPreviousState()">
+        Prev
+      </button>
+      <button class="ui primary button"
+              (click)="decryptFileManagement.getNextState()">
+        Next
+      </button>
+    </div>
     <div class="file-management__decrypt-list"
          (click)="decryptFileList.unselectedList($event, decryptList)">
       <div class="file" *ngFor="let file of decryptList"

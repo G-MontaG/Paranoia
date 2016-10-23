@@ -1,5 +1,4 @@
-import {Component, ChangeDetectorRef} from '@angular/core';
-import {OnInit} from '@angular/core';
+import {Component, ChangeDetectorRef, OnInit} from "@angular/core";
 import {FileManagementService} from "./services/file-management.service";
 import {FileListService} from "./services/file-list.service";
 import {fileInfo} from "./services/file-info.model";
@@ -52,5 +51,11 @@ export class FileManagementComponent implements OnInit {
     });
   }
 
+  public encryptFiles() {
+    console.log(this.encryptFileList.getSelectedList(this.encryptList));
+  }
 
+  public decryptFiles() {
+    console.log(this.encryptFileList.getSelectedList(this.decryptList));
+  }
 }

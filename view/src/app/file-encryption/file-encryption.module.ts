@@ -29,7 +29,7 @@ import {CryptProgressComponent} from "./crypt-progress/crypt-progress.component"
     FileManagementService,
     FileListService,
     FileCreatorService,
-    DirectoryCreatorService
+    DirectoryCreatorService,
   ]
 })
 export class FileEncryptionModule {

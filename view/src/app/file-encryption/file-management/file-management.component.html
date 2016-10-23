@@ -10,9 +10,11 @@
         <i class="fa" aria-hidden="true" [ngClass]="{'fa-file': file.type === 'file',
          'fa-folder': file.type === 'dir',
          'fa-file-o': file.type === null}"
-           (click)="file.switchSelection($event)"></i>
+           (click)="file.switchSelection($event)"
+           (dblclick)="file.enter($event, encryptFileManagement)"></i>
         <div class="file__name"
-             (click)="file.switchSelection($event)">
+             (click)="file.switchSelection($event)"
+             (dblclick)="file.enter($event, encryptFileManagement)">
           {{file.name}}
         </div>
       </div>
@@ -34,9 +36,11 @@
         <i class="fa" aria-hidden="true" [ngClass]="{'fa-file': file.type === 'file',
          'fa-folder': file.type === 'dir',
          'fa-file-o': file.type === null}"
-           (click)="file.switchSelection($event)"></i>
+           (click)="file.switchSelection($event)"
+           (dblclick)="file.enter($event, decryptFileManagement)"></i>
         <div class="file__name"
-             (click)="file.switchSelection($event)">
+             (click)="file.switchSelection($event)"
+             (dblclick)="file.enter($event, decryptFileManagement)">
           {{file.name}}
         </div>
       </div>

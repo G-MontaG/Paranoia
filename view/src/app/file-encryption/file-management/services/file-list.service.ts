@@ -13,11 +13,11 @@ export class FileListService {
   }
 
   public createList(files: Array<fileInfo>) {
-    let _currentList = [];
+    let currentList = [];
     _.forEach(files, (file) => {
-      _currentList.push(AbstractFileCreatorService.getCreator(file).create(file));
+      currentList.push(AbstractFileCreatorService.getCreator(file).create(file));
     });
-    return _currentList;
+    return currentList;
   }
 
   public getSelectedList(list: Array<AbstractFileModel>) {

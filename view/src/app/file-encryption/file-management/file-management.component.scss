@@ -20,4 +20,9 @@
     padding: 15px;
     text-align: right;
   }
+  &__encrypt-nav,
+  &__decrypt-nav {
+    height: 66px;
+    padding: 15px;
+  }
 }

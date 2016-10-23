@@ -1,5 +1,5 @@
 import moment = require("moment");
-import {ipcMain} from 'electron';
+import {ipcMain, dialog} from 'electron';
 import pathModule = require('path');
 import fs = require('fs');
 import _ = require('lodash');
@@ -20,14 +20,15 @@ class FileManagementService {
     }
   };
 
-  constructor() {
-    this._init();
+  private type: string;
 
-    this._getFiles('encrypt');
-    this._getFiles('decrypt');
+  constructor(type: string) {
+    this.type = type;
+    this._getFiles();
+    this._addFiles();
   }
 
-  private _init() {
+  public static init() {
     ipcMain.on('fileManagementInit', (event, arg) => {
       FileSystemService.stat(appConfigService.fileManagement.encryptRoot)
         .then((stats) => {
@@ -53,10 +54,10 @@ class FileManagementService {
     });
   }
 
-  private _getFiles(type: string) {
-    ipcMain.on(`fileManagementGetFiles-${type}`, (event, arg: string) => {
+  private _getFiles() {
+    ipcMain.on(`fileManagementGetFiles-${this.type}`, (event, arg: string) => {
       let currentPath;
-      if (type === 'encrypt') {
+      if (this.type === 'encrypt') {
         currentPath = pathModule.join(appConfigService.fileManagement.encryptRoot, arg);
       } else {
         currentPath = pathModule.join(appConfigService.fileManagement.decryptRoot, arg);
@@ -64,12 +65,12 @@ class FileManagementService {
       FileSystemService.stat(currentPath)
         .then((stats) => {
           if (!stats) {
-            event.sender.send(`fileManagementGetFiles-${type}-reply`, false);
+            event.sender.send(`fileManagementGetFiles-${this.type}-reply`, false);
           }
         })
         .then(() => {
-          if (this._closeWatcher(currentPath, type)) {
-            this._createWatcher(currentPath, type);
+          if (this._closeWatcher(currentPath, this.type)) {
+            this._createWatcher(currentPath, this.type);
           }
           return FileSystemService.readdir(currentPath);
         })
@@ -77,11 +78,11 @@ class FileManagementService {
           return this._prepareFileList(currentPath, files);
         })
         .then((preparedFiles) => {
-          event.sender.send(`fileManagementGetFiles-${type}-reply`, preparedFiles);
+          event.sender.send(`fileManagementGetFiles-${this.type}-reply`, preparedFiles);
         })
         .catch((err) => {
           err.message = "Error reading files from folder. " + err.message;
-          event.sender.send(`fileManagementGetFiles-${type}-reply`, err);
+          event.sender.send(`fileManagementGetFiles-${this.type}-reply`, err);
         });
     });
   }
@@ -132,7 +133,30 @@ class FileManagementService {
       resolve(preparedFiles);
     });
   }
+
+  private _addFiles() {
+    ipcMain.on(`fileManagementAddFiles-${this.type}`, (event, arg: string) => {
+      let currentPath;
+      if (this.type === 'encrypt') {
+        currentPath = pathModule.join(appConfigService.fileManagement.encryptRoot, arg);
+      } else {
+        currentPath = pathModule.join(appConfigService.fileManagement.decryptRoot, arg);
+      }
+      let arrayOfFiles = dialog.showOpenDialog({
+        title: `Add files to ${this.type} folder`,
+        defaultPath: FileSystemService.getUserHomePath(),
+        buttonLabel: 'Add',
+        properties: ['openFile', 'multiSelections']
+      });
+      _.forEach(arrayOfFiles, (filePath) => {
+        let toPath = pathModule.join(currentPath, pathModule.basename(filePath));
+        FileSystemService.copyFile(filePath, toPath);
+      });
+    });
+  }
 }
 
-new FileManagementService();
+new FileManagementService('encrypt');
+new FileManagementService('decrypt');
 
+FileManagementService.init();

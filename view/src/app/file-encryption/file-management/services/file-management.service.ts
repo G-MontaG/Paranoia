@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable} from "@angular/core";
 import {ipcRenderer} from "electron";
 import {Observable} from "rxjs";
 import path = require('path');
@@ -37,15 +37,19 @@ export class FileManagementService {
     });
   }
 
+  public addFiles() {
+    ipcRenderer.send(`fileManagementAddFiles-${this._type}`, this.getCurrentState());
+  }
+
   public getPreviousState() {
-    if(this._currentStateIndex > 0) {
+    if (this._currentStateIndex > 0) {
       this._currentStateIndex--;
     }
     this.getFiles(this.getCurrentState());
   };
 
   public getNextState() {
-    if(this._currentStateIndex < this._state.length - 1) {
+    if (this._currentStateIndex < this._state.length - 1) {
       this._currentStateIndex++;
     }
     this.getFiles(this.getCurrentState());
@@ -55,7 +59,7 @@ export class FileManagementService {
     return this._state[this._currentStateIndex];
   };
 
-  public setNewState(state:string) {
+  public setNewState(state: string) {
     if (this._currentStateIndex === this._state.length - 1) {
       this._state.push(state);
       this.sliceStateArray();
@@ -67,7 +71,7 @@ export class FileManagementService {
   };
 
   private sliceStateArray() {
-    if(this._state.length > 5) {
+    if (this._state.length > 5) {
       this._state = _.drop(this._state);
     }
   }

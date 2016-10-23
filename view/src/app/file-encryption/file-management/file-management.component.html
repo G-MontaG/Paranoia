@@ -1,13 +1,17 @@
 <div class="file-management">
   <div class="file-management__encrypt">
     <div class="file-management__encrypt-nav">
-      <button class="ui primary button"
+      <button class="ui button"
               (click)="encryptFileManagement.getPreviousState()">
         Prev
       </button>
-      <button class="ui primary button"
+      <button class="ui button"
               (click)="encryptFileManagement.getNextState()">
         Next
+      </button>
+      <button class="ui primary button"
+              (click)="encryptFileManagement.addFiles()">
+        Add
       </button>
     </div>
     <div class="file-management__encrypt-list"
@@ -37,13 +41,17 @@
   </div>
   <div class="file-management__decrypt">
     <div class="file-management__decrypt-nav">
-      <button class="ui primary button"
+      <button class="ui button"
               (click)="decryptFileManagement.getPreviousState()">
         Prev
       </button>
-      <button class="ui primary button"
+      <button class="ui button"
               (click)="decryptFileManagement.getNextState()">
         Next
+      </button>
+      <button class="ui primary button"
+              (click)="decryptFileManagement.addFiles()">
+        Add
       </button>
     </div>
     <div class="file-management__decrypt-list"

@@ -3,6 +3,7 @@ import {ipcRenderer} from "electron";
 import {Observable} from "rxjs";
 import path = require('path');
 import _ = require('lodash');
+import {AbstractFileModel} from "./abstract-file.model";
 
 @Injectable()
 export class FileManagementService {
@@ -39,6 +40,13 @@ export class FileManagementService {
 
   public addFiles() {
     ipcRenderer.send(`fileManagementAddFiles-${this._type}`, this.getCurrentState());
+  }
+
+  public removeFile(file: AbstractFileModel) {
+    ipcRenderer.send(`fileManagementRemoveFile-${this._type}`, {
+      path: this.getCurrentState(),
+      fileName: file.name
+    });
   }
 
   public getPreviousState() {

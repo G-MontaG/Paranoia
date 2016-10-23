@@ -26,6 +26,7 @@ class FileManagementService {
     this.type = type;
     this._getFiles();
     this._addFiles();
+    this._removeFile();
   }
 
   public static init() {
@@ -152,6 +153,18 @@ class FileManagementService {
         let toPath = pathModule.join(currentPath, pathModule.basename(filePath));
         FileSystemService.copyFile(filePath, toPath);
       });
+    });
+  }
+
+  private _removeFile() {
+    ipcMain.on(`fileManagementRemoveFile-${this.type}`, (event, arg: {path: string, fileName: string}) => {
+      let currentPath;
+      if (this.type === 'encrypt') {
+        currentPath = pathModule.join(appConfigService.fileManagement.encryptRoot, arg.path, arg.fileName);
+      } else {
+        currentPath = pathModule.join(appConfigService.fileManagement.decryptRoot, arg.path, arg.fileName);
+      }
+      FileSystemService.unlink(currentPath);
     });
   }
 }

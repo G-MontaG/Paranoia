@@ -4,6 +4,9 @@ import {AbstractFileCreatorService} from "./abstract-file-creator.service";
 import {fileInfo} from "./file-info.model";
 import {AbstractFileModel} from "./abstract-file.model";
 import {FileManagementService} from "./file-management.service";
+import {remote} from "electron";
+const Menu = remote.Menu;
+const MenuItem = remote.MenuItem;
 
 @Injectable()
 export class FileCreatorService implements AbstractFileCreatorService {
@@ -22,6 +25,17 @@ export class FileCreatorService implements AbstractFileCreatorService {
       },
       enter(event, state: FileManagementService) {
         event.stopPropagation();
+      },
+      contextMenu(event, state: FileManagementService) {
+        event.stopPropagation();
+        let self = this;
+        AbstractFileCreatorService.menu.insert(0, new MenuItem({
+          label: 'Delete',
+          click: function (menuItem, browserWindow) {
+            state.removeFile(self);
+          }
+        }));
+        AbstractFileCreatorService.menu.popup(remote.getCurrentWindow());
       }
     });
   }

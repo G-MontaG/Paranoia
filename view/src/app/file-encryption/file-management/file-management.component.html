@@ -25,10 +25,12 @@
          'fa-folder': file.type === 'dir',
          'fa-file-o': file.type === null}"
            (click)="file.switchSelection($event)"
-           (dblclick)="file.enter($event, encryptFileManagement)"></i>
+           (dblclick)="file.enter($event, encryptFileManagement)"
+           (contextmenu)="file.contextMenu($event, encryptFileManagement)"></i>
         <div class="file__name"
              (click)="file.switchSelection($event)"
-             (dblclick)="file.enter($event, encryptFileManagement)">
+             (dblclick)="file.enter($event, encryptFileManagement)"
+             (contextmenu)="file.contextMenu($event, encryptFileManagement)">
           {{file.name}}
         </div>
       </div>
@@ -66,10 +68,12 @@
          'fa-folder': file.type === 'dir',
          'fa-file-o': file.type === null}"
            (click)="file.switchSelection($event)"
-           (dblclick)="file.enter($event, decryptFileManagement)"></i>
+           (dblclick)="file.enter($event, decryptFileManagement)"
+           (contextmenu)="file.contextMenu($event, decryptFileManagement)"></i>
         <div class="file__name"
              (click)="file.switchSelection($event)"
-             (dblclick)="file.enter($event, decryptFileManagement)">
+             (dblclick)="file.enter($event, decryptFileManagement)"
+             (contextmenu)="file.contextMenu($event, decryptFileManagement)">
           {{file.name}}
         </div>
       </div>

@@ -25,13 +25,15 @@
     "electron": "^1.4.3",
     "filesize": "^3.3.0",
     "lodash": "^4.16.4",
-    "moment": "^2.15.1"
+    "moment": "^2.15.1",
+    "rimraf": "^2.5.4"
   },
   "devDependencies": {
     "@types/electron": "^1.4.24",
     "@types/filesize": "^3.2.15",
     "@types/lodash": "^4.14.37",
     "@types/node": "^6.0.45",
+    "@types/rimraf": "0.0.28",
     "electron-connect": "^0.6.0",
     "gulp": "^3.9.1",
     "tslint": "^3.15.1",

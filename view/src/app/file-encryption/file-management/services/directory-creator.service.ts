@@ -1,5 +1,4 @@
-import {Injectable} from '@angular/core';
-import {AbstractFileModel} from "./abstract-file.model";
+import {Injectable} from "@angular/core";
 import {fileInfo} from "./file-info.model";
 import {FileManagementService} from "./file-management.service";
 import {AbstractFileCreatorService} from "./abstract-file-creator.service";
@@ -11,6 +10,8 @@ const MenuItem = remote.MenuItem;
 export class DirectoryCreatorService implements AbstractFileCreatorService {
   constructor() {
   }
+
+  private menu;
 
   public create(file: fileInfo) {
     return _.assign(file, {
@@ -29,13 +30,16 @@ export class DirectoryCreatorService implements AbstractFileCreatorService {
       contextMenu(event, state: FileManagementService) {
         event.stopPropagation();
         let self = this;
-        AbstractFileCreatorService.menu.insert(0, new MenuItem({
-          label: 'Delete',
-          click: function (menuItem, browserWindow) {
-            state.removeFile(self);
+        let fileContextMenuTemplate = [
+          {
+            label: 'Delete',
+            click: function () {
+              state.removeDir(self);
+            }
           }
-        }));
-        AbstractFileCreatorService.menu.popup(remote.getCurrentWindow());
+        ];
+        this.menu = Menu.buildFromTemplate(fileContextMenuTemplate);
+        this.menu.popup(remote.getCurrentWindow());
       }
     });
   }

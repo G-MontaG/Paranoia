@@ -1,6 +1,8 @@
 const fs = require('fs');
 const pathModule = require('path');
 const os = require('os');
+import _ = require('lodash');
+import rmdir = require('rimraf');
 
 /**
  * File system API service.
@@ -67,7 +69,7 @@ export class FileSystemService {
     return new Promise((resolve, reject) => {
       function mkdirs(dirPath, mode) {
         //Call the standard fs.mkdir
-        fs.mkdir(dirPath, mode, function(error: {code: string}) {
+        fs.mkdir(dirPath, mode, function (error: {code: string}) {
           //When it fail in this way, do the custom steps
           if (error && error.code === 'ENOENT') {
             //Create all the parents recursively
@@ -78,33 +80,19 @@ export class FileSystemService {
           resolve();
         });
       }
+
       mkdirs(path, mode);
     });
   }
 
   public static rmdir(path: string | Buffer) {
     return new Promise((resolve, reject) => {
-      this.readdir(path)
-        .then((files: Array<string>) => {
-          files.forEach((file) => {
-            let filename = pathModule.join(path, file);
-            let stat = fs.statSync(filename);
-            if(filename == "." || filename == "..") {
-              // pass these files
-            } else if(stat.isDirectory()) {
-              this.rmdir(filename);
-            } else {
-              fs.unlinkSync(filename);
-            }
-          });
-        })
-        .then(() => {
-          fs.rmdirSync(path);
-          resolve();
-        })
-        .catch((err) => {
-          reject(err);
-        });
+      rmdir(path.toString(), function(error){
+        if(error) {
+          reject();
+        }
+        resolve();
+      });
     });
   }
 
@@ -145,8 +133,8 @@ export class FileSystemService {
         .then(() => {
           resolve();
         }).catch((err) => {
-          reject(err);
-        });
+        reject(err);
+      });
     });
   }
 

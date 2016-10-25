@@ -49,6 +49,13 @@ export class FileManagementService {
     });
   }
 
+  public removeDir(file: AbstractFileModel) {
+    ipcRenderer.send(`fileManagementRemoveDir-${this._type}`, {
+      path: this.getCurrentState(),
+      dirName: file.name
+    });
+  }
+
   public getPreviousState() {
     if (this._currentStateIndex > 0) {
       this._currentStateIndex--;

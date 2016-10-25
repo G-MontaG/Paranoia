@@ -3,9 +3,6 @@ import {fileInfo} from "./file-info.model";
 import {AbstractFileModel} from "./abstract-file.model";
 import {FileCreatorService} from "./file-creator.service";
 import {DirectoryCreatorService} from "./directory-creator.service";
-import {remote} from "electron";
-const Menu = remote.Menu;
-const MenuItem = remote.MenuItem;
 
 @Injectable()
 export abstract class AbstractFileCreatorService {
@@ -17,7 +14,7 @@ export abstract class AbstractFileCreatorService {
 
   public abstract create(file: fileInfo);
 
-  public static getCreator(file: fileInfo) {
+  public static getCreator(file: fileInfo): AbstractFileCreatorService | null {
     if (file.type === 'file') {
       return this.fileCreator;
     } else if (file.type === 'dir') {
@@ -26,6 +23,4 @@ export abstract class AbstractFileCreatorService {
       return null;
     }
   }
-
-  public static menu = new Menu();
 }

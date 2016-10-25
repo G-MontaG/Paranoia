@@ -13,6 +13,8 @@ export class FileCreatorService implements AbstractFileCreatorService {
   constructor() {
   }
 
+  private menu;
+
   public create(file: fileInfo) {
     return _.assign(file, {
       selected: false,
@@ -29,13 +31,16 @@ export class FileCreatorService implements AbstractFileCreatorService {
       contextMenu(event, state: FileManagementService) {
         event.stopPropagation();
         let self = this;
-        AbstractFileCreatorService.menu.insert(0, new MenuItem({
-          label: 'Delete',
-          click: function (menuItem, browserWindow) {
-            state.removeFile(self);
+        let fileContextMenuTemplate = [
+          {
+            label: 'Delete',
+            click: function () {
+              state.removeFile(self);
+            }
           }
-        }));
-        AbstractFileCreatorService.menu.popup(remote.getCurrentWindow());
+        ];
+        this.menu = Menu.buildFromTemplate(fileContextMenuTemplate);
+        this.menu.popup(remote.getCurrentWindow());
       }
     });
   }

@@ -1,7 +1,7 @@
 import moment = require("moment");
 import {ipcMain, dialog} from 'electron';
-import pathModule = require('path');
-import fs = require('fs');
+const pathModule = require('path');
+const fs = require('fs');
 import _ = require('lodash');
 import fileSize = require('filesize');
 import {win} from "../../init";
@@ -27,6 +27,7 @@ class FileManagementService {
     this._getFiles();
     this._addFiles();
     this._removeFile();
+    this._removeDir();
   }
 
   public static init() {
@@ -165,6 +166,18 @@ class FileManagementService {
         currentPath = pathModule.join(appConfigService.fileManagement.decryptRoot, arg.path, arg.fileName);
       }
       FileSystemService.unlink(currentPath);
+    });
+  }
+
+  private _removeDir() {
+    ipcMain.on(`fileManagementRemoveDir-${this.type}`, (event, arg: {path: string, dirName: string}) => {
+      let currentPath;
+      if (this.type === 'encrypt') {
+        currentPath = pathModule.join(appConfigService.fileManagement.encryptRoot, arg.path, arg.dirName);
+      } else {
+        currentPath = pathModule.join(appConfigService.fileManagement.decryptRoot, arg.path, arg.dirName);
+      }
+      FileSystemService.rmdir(currentPath);
     });
   }
 }

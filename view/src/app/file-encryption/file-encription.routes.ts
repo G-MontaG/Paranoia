@@ -5,7 +5,8 @@ import {CryptProgressComponent} from "./crypt-progress/crypt-progress.component"
 
 export const routes: Routes = [
   {
-    path: 'file-encryption', children: [
+    path: 'file-encryption',
+    children: [
     {
       path: '',
       component: FileManagementComponent

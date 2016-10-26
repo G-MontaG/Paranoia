@@ -5,6 +5,7 @@ import {BrowserModule} from "@angular/platform-browser";
 import {routes} from "./file-encription.routes";
 import {FileEncryptionComponent} from "./file-encryption.component";
 import {FileManagementComponent} from "./file-management/file-management.component";
+import {FileEncryptionService} from "./service/file-encryption.service";
 import {FileManagementService} from "./file-management/services/file-management.service";
 import {FileListService} from "./file-management/services/file-list.service";
 import {FileCreatorService} from "./file-management/services/file-creator.service";
@@ -25,7 +26,11 @@ import {CryptProgressComponent} from "./crypt-progress/crypt-progress.component"
     FormsModule,
     ReactiveFormsModule
   ],
+  exports: [
+    RouterModule
+  ],
   providers: [
+    FileEncryptionService,
     FileManagementService,
     FileListService,
     FileCreatorService,

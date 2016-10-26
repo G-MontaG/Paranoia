@@ -39,6 +39,9 @@ export function createAppModule(arg: appConfig) {
       ConnectionModule,
       SettingsModule
     ],
+    exports: [
+      RouterModule
+    ],
     bootstrap: [AppComponent],
     providers: [
       AppConfigService,

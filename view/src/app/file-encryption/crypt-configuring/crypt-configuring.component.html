@@ -1,0 +1,16 @@
+<div class="crypt-configuring">
+  <div class="crypt-configuring__file-list">
+    <div *ngFor="let file of fileEncryptionService.fileList; let i = index;">
+      <div class="file-info">
+        {{file.name}}
+      </div>
+      <div class="ui popup">
+        {{file.fullPath}}<br>
+        {{file.size}}
+      </div>
+    </div>
+  </div>
+  <div class="crypt-configuring__config">
+    <button class="ui button default" (click)="cancel($event)">Cancel</button>
+  </div>
+</div>

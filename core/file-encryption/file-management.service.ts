@@ -124,6 +124,7 @@ class FileManagementService {
         }
         preparedFiles.push({
           name: file,
+          fullPath: pathModule.join(path, file),
           type: fileType,
           extension: pathModule.extname(file),
           size: fileSize(fileInfo.size),

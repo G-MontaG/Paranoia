@@ -1,0 +1,16 @@
+.crypt-configuring {
+  height: 100%;
+  @include flex-container(flex, $align-items: stretch, $flex-wrap: nowrap);
+  &__file-list {
+    width: 30%;
+    padding: 15px;
+  }
+  &__config {
+    padding: 15px;
+  }
+  .file-info {
+    padding: 5px 10px;
+    @include truncate();
+    cursor: default;
+  }
+}

@@ -2,20 +2,20 @@
   <div class="file-management__encrypt">
     <div class="file-management__encrypt-nav">
       <button class="ui button"
-              (click)="encryptFileManagement.getPreviousState()">
+              (click)="encryptFileManagementService.getPreviousState()">
         Prev
       </button>
       <button class="ui button"
-              (click)="encryptFileManagement.getNextState()">
+              (click)="encryptFileManagementService.getNextState()">
         Next
       </button>
       <button class="ui primary button"
-              (click)="encryptFileManagement.addFiles()">
+              (click)="encryptFileManagementService.addFiles()">
         Add
       </button>
     </div>
     <div class="file-management__encrypt-list"
-         (click)="encryptFileList.unselectedList($event, encryptList)">
+         (click)="encryptFileListService.unselectedList($event, encryptList)">
       <div class="file" *ngFor="let file of encryptList"
            [ngClass]="{'file__file-type': file.type === 'file',
          'file__dir-type': file.type === 'dir',
@@ -25,19 +25,19 @@
          'fa-folder': file.type === 'dir',
          'fa-file-o': file.type === null}"
            (click)="file.switchSelection($event)"
-           (dblclick)="file.enter($event, encryptFileManagement)"
-           (contextmenu)="file.contextMenu($event, encryptFileManagement)"></i>
+           (dblclick)="file.enter($event, encryptFileManagementService)"
+           (contextmenu)="file.contextMenu($event, encryptFileManagementService)"></i>
         <div class="file__name"
              (click)="file.switchSelection($event)"
-             (dblclick)="file.enter($event, encryptFileManagement)"
-             (contextmenu)="file.contextMenu($event, encryptFileManagement)">
+             (dblclick)="file.enter($event, encryptFileManagementService)"
+             (contextmenu)="file.contextMenu($event, encryptFileManagementService)">
           {{file.name}}
         </div>
       </div>
     </div>
     <div class="file-management__encrypt-btn">
       <button class="ui primary button"
-              (click)="encryptFiles()">
+              (click)="startConfiguring($event, 'encrypt')">
         Encrypt
       </button>
     </div>
@@ -45,20 +45,20 @@
   <div class="file-management__decrypt">
     <div class="file-management__decrypt-nav">
       <button class="ui button"
-              (click)="decryptFileManagement.getPreviousState()">
+              (click)="decryptFileManagementService.getPreviousState()">
         Prev
       </button>
       <button class="ui button"
-              (click)="decryptFileManagement.getNextState()">
+              (click)="decryptFileManagementService.getNextState()">
         Next
       </button>
       <button class="ui primary button"
-              (click)="decryptFileManagement.addFiles()">
+              (click)="decryptFileManagementService.addFiles()">
         Add
       </button>
     </div>
     <div class="file-management__decrypt-list"
-         (click)="decryptFileList.unselectedList($event, decryptList)">
+         (click)="decryptFileListService.unselectedList($event, decryptList)">
       <div class="file" *ngFor="let file of decryptList"
            [ngClass]="{'file__file-type': file.type === 'file',
          'file__dir-type': file.type === 'dir',
@@ -68,19 +68,19 @@
          'fa-folder': file.type === 'dir',
          'fa-file-o': file.type === null}"
            (click)="file.switchSelection($event)"
-           (dblclick)="file.enter($event, decryptFileManagement)"
-           (contextmenu)="file.contextMenu($event, decryptFileManagement)"></i>
+           (dblclick)="file.enter($event, decryptFileManagementService)"
+           (contextmenu)="file.contextMenu($event, decryptFileManagementService)"></i>
         <div class="file__name"
              (click)="file.switchSelection($event)"
-             (dblclick)="file.enter($event, decryptFileManagement)"
-             (contextmenu)="file.contextMenu($event, decryptFileManagement)">
+             (dblclick)="file.enter($event, decryptFileManagementService)"
+             (contextmenu)="file.contextMenu($event, decryptFileManagementService)">
           {{file.name}}
         </div>
       </div>
     </div>
     <div class="file-management__decrypt-btn">
       <button class="ui primary button"
-              (click)="decryptFiles()">
+              (click)="startConfiguring($event, 'decrypt')">
         Decrypt
       </button>
     </div>

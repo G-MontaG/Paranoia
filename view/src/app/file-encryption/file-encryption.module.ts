@@ -2,6 +2,7 @@ import {NgModule} from "@angular/core";
 import {RouterModule} from "@angular/router";
 import {ReactiveFormsModule, FormsModule} from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
+import {NgSemanticModule} from "ng-semantic";
 import {routes} from "./file-encription.routes";
 import {FileEncryptionComponent} from "./file-encryption.component";
 import {FileManagementComponent} from "./file-management/file-management.component";
@@ -11,6 +12,7 @@ import {FileListService} from "./file-management/services/file-list.service";
 import {FileCreatorService} from "./file-management/services/file-creator.service";
 import {DirectoryCreatorService} from "./file-management/services/directory-creator.service";
 import {CryptConfiguringComponent} from "./crypt-configuring/crypt-configuring.component";
+import {CryptConfiguringService} from "./crypt-configuring/service/crypt-configuring.service";
 import {CryptProgressComponent} from "./crypt-progress/crypt-progress.component";
 
 @NgModule({
@@ -24,7 +26,8 @@ import {CryptProgressComponent} from "./crypt-progress/crypt-progress.component"
     BrowserModule,
     RouterModule.forChild(routes),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgSemanticModule
   ],
   exports: [
     RouterModule
@@ -35,6 +38,7 @@ import {CryptProgressComponent} from "./crypt-progress/crypt-progress.component"
     FileListService,
     FileCreatorService,
     DirectoryCreatorService,
+    CryptConfiguringService
   ]
 })
 export class FileEncryptionModule {

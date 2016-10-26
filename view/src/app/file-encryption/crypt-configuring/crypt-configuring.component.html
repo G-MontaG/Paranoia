@@ -13,6 +13,14 @@
     </div>
   </div>
   <div class="crypt-configuring__config">
-    <button class="ui button default" (click)="cancel($event)">Cancel</button>
+    <form class="ui form">
+      <div class="field">
+        <label>Select algorithm</label>
+        <sm-select [(model)]="selectedAlgorithm" placeholder="Select algorithm..." class="fluid search">
+          <option *ngFor="let algorithm of cryptConfiguringService.algorithms">{{algorithm}}</option>
+        </sm-select>
+      </div>
+      <button class="ui button default" (click)="cancel($event)">Cancel</button>
+    </form>
   </div>
 </div>

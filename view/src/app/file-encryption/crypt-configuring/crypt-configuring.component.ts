@@ -1,6 +1,8 @@
 import {Component, OnInit, OnDestroy, AfterViewInit} from "@angular/core";
-import {FileEncryptionService} from "../service/file-encryption.service";
 import {Router} from "@angular/router";
+import {FileEncryptionService} from "../service/file-encryption.service";
+import {CryptConfiguringService} from "./service/crypt-configuring.service";
+import {FormControl, FormGroup, FormBuilder} from "@angular/forms";
 
 @Component({
   selector: 'crypt-configuring',
@@ -8,13 +10,17 @@ import {Router} from "@angular/router";
   providers: []
 })
 export class CryptConfiguringComponent implements OnInit, OnDestroy, AfterViewInit {
+  public configuringForm: FormGroup;
+  public algorithm: FormControl;
+
   constructor(private _router: Router,
-              public fileEncryptionService: FileEncryptionService) {
-    console.log(fileEncryptionService.fileList);
+              private _fb: FormBuilder,
+              public fileEncryptionService: FileEncryptionService,
+              public cryptConfiguringService: CryptConfiguringService) {
   }
 
   ngOnInit() {
-
+    this.initForm();
   }
 
   ngAfterViewInit() {
@@ -23,6 +29,14 @@ export class CryptConfiguringComponent implements OnInit, OnDestroy, AfterViewIn
 
   ngOnDestroy() {
 
+  }
+
+  private initForm() {
+    this.algorithm = new FormControl("aes-256-gcm");
+
+    this.configuringForm = this._fb.group({
+      algorithm: this.algorithm
+    });
   }
 
   public cancel(event) {

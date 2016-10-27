@@ -34,8 +34,8 @@ module.exports = {
       'moment',
       'toastr',
       'semantic-ui/dist/semantic.js',
-      'ng-semantic'
-      //'ng2-semantic-ui/ng2-semantic-ui'
+      'ng-semantic',
+      'password-generator'
     ]
   },
   output: {

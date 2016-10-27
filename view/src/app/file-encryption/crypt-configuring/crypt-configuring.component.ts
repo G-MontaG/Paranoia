@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 import {FileEncryptionService} from "../service/file-encryption.service";
 import {CryptConfiguringService} from "./service/crypt-configuring.service";
 import {FormControl, FormGroup, FormBuilder, Validators} from "@angular/forms";
+const passwordGenerator = require('password-generator');
 
 @Component({
   selector: 'crypt-configuring',
@@ -58,6 +59,15 @@ export class CryptConfiguringComponent implements OnInit, OnDestroy, AfterViewIn
         item.setAttribute('type', 'text');
       }
     });
+  }
+
+  public generatePassword(event) {
+    this.manualPassword.patchValue(passwordGenerator(6, false,
+      /[\w\d\W\!\@\#\$\%\^\&\*\(\)\=\_\+\,\.\/\<\>\?\;\'\:\"\|\{\}]/));
+  }
+
+  public generateSalt(event) {
+
   }
 
   public cancel(event) {

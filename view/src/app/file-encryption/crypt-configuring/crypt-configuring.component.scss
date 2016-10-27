@@ -17,14 +17,17 @@
     }
   }
   &__form {
-    @include flex-container(flex, $flex-direction: column);
-    &__item {
+    @include flex-container(flex, $flex-wrap: wrap);
+    .field {
       width: 50%;
-      &:first-child {
+      &:nth-child(odd) {
         padding-right: 1em;
       }
-      &:last-child {
+      &:nth-child(even) {
         padding-left: 1em;
+        .ui.button {
+          margin-top: 23px;
+        }
       }
     }
     .ui.right.labeled.input {

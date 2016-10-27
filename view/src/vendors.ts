@@ -23,5 +23,7 @@ import 'semantic-ui/dist/semantic.js';
 import 'ng-semantic';
 //import 'ng2-semantic-ui/ng2-semantic-ui';
 
+import 'password-generator';
+
 //css
 import './vendors.scss';

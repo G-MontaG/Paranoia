@@ -27,45 +27,51 @@
         </div>
         <div class="ui tab active" data-tab="manual">
           <div [formGroup]="manualConfiguringForm" class="crypt-configuring__form">
-            <div class="crypt-configuring__form__item">
-              <div class="field">
-                <label>Password</label>
-                <div class="ui right labeled input">
-                  <input type="text" class="password" placeholder="Enter password" formControlName="password">
-                  <div class="ui label" (click)="hidePassword($event)">
-                    <i class="fa fa-eye" aria-hidden="true"></i>
-                  </div>
-                </div>
-                <div *ngIf="manualConfiguringForm.controls.password.dirty &&
-                        !manualConfiguringForm.controls.password.valid"
-                     class="ui negative small message">
-                  <div [hidden]="!manualConfiguringForm.controls.password.errors.required">
-                    Password field is required
-                  </div>
-                  <div [hidden]="!manualConfiguringForm.controls.password.errors.minlength">
-                    Password field must have more then 6 characters
-                  </div>
+            <div class="field">
+              <label>Password</label>
+              <div class="ui right labeled input">
+                <input type="text" class="password" placeholder="Enter password"
+                       formControlName="password">
+                <div class="ui label" (click)="hidePassword($event)">
+                  <i class="fa fa-eye" aria-hidden="true"></i>
                 </div>
               </div>
-              <div class="field">
-                <label>Salt</label>
-                <div class="ui input">
-                  <input type="text" placeholder="Enter salt" formControlName="salt">
+              <div *ngIf="manualConfiguringForm.controls.password.dirty &&
+                        !manualConfiguringForm.controls.password.valid"
+                   class="ui negative small message">
+                <div [hidden]="!manualConfiguringForm.controls.password.errors.required">
+                  Password field is required
                 </div>
-                <div *ngIf="manualConfiguringForm.controls.salt.dirty &&
-                        !manualConfiguringForm.controls.salt.valid"
-                     class="ui negative small message">
-                  <div [hidden]="!manualConfiguringForm.controls.salt.errors.required">
-                    Salt field is required
-                  </div>
-                  <div [hidden]="!manualConfiguringForm.controls.salt.errors.minlength">
-                    Salt field must have more then 6 characters
-                  </div>
+                <div [hidden]="!manualConfiguringForm.controls.password.errors.minlength">
+                  Password field must have more then 6 characters
                 </div>
               </div>
             </div>
-            <div class="crypt-configuring__form__item">
-
+            <div class="field">
+              <button class="ui button primary"
+                      (click)="generatePassword($event)">Generate password
+              </button>
+            </div>
+            <div class="field">
+              <label>Salt</label>
+              <div class="ui input">
+                <input type="text" placeholder="Enter salt" formControlName="salt">
+              </div>
+              <div *ngIf="manualConfiguringForm.controls.salt.dirty &&
+                        !manualConfiguringForm.controls.salt.valid"
+                   class="ui negative small message">
+                <div [hidden]="!manualConfiguringForm.controls.salt.errors.required">
+                  Salt field is required
+                </div>
+                <div [hidden]="!manualConfiguringForm.controls.salt.errors.minlength">
+                  Salt field must have more then 6 characters
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <button class="ui button primary"
+                      (click)="generateSalt($event)">Generate salt
+              </button>
             </div>
           </div>
         </div>
@@ -74,8 +80,12 @@
         </div>
       </div>
       <div>
-        <button class="ui button right floated primary" (click)="cancel($event)">Encrypt</button>
-        <button class="ui button right floated default" (click)="cancel($event)">Cancel</button>
+        <button class="ui button right floated primary"
+                (click)="cancel($event)">Encrypt
+        </button>
+        <button class="ui button right floated default"
+                (click)="cancel($event)">Cancel
+        </button>
       </div>
     </form>
   </div>

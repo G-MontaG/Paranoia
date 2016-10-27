@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, AfterViewInit} from "@angular/core";
+import {Component, OnInit, OnDestroy, AfterViewInit, ElementRef} from "@angular/core";
 import {Router} from "@angular/router";
 import {FileEncryptionService} from "../service/file-encryption.service";
 import {CryptConfiguringService} from "./service/crypt-configuring.service";
@@ -18,6 +18,7 @@ export class CryptConfiguringComponent implements OnInit, OnDestroy, AfterViewIn
 
   constructor(private _router: Router,
               private _fb: FormBuilder,
+              private _el: ElementRef,
               public fileEncryptionService: FileEncryptionService,
               public cryptConfiguringService: CryptConfiguringService) {
   }
@@ -44,6 +45,18 @@ export class CryptConfiguringComponent implements OnInit, OnDestroy, AfterViewIn
     this.manualConfiguringForm = this._fb.group({
       password: this.manualPassword,
       salt: this.manualSalt
+    });
+  }
+
+  public hidePassword(event) {
+    event.stopPropagation();
+    let target = this._el.nativeElement.getElementsByClassName('password');
+    _.forEach(target, (item) => {
+      if(item.getAttribute('type') === 'text') {
+        item.setAttribute('type', 'password');
+      } else {
+        item.setAttribute('type', 'text');
+      }
     });
   }
 

@@ -16,6 +16,23 @@
       }
     }
   }
+  &__form {
+    @include flex-container(flex, $flex-direction: column);
+    &__item {
+      width: 50%;
+      &:first-child {
+        padding-right: 1em;
+      }
+      &:last-child {
+        padding-left: 1em;
+      }
+    }
+    .ui.right.labeled.input {
+      .ui.label {
+        cursor: pointer;
+      }
+    }
+  }
 
   .file-info {
     padding: 5px 0;

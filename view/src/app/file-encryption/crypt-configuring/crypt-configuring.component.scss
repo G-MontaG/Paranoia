@@ -9,6 +9,7 @@
     padding: 15px;
     @include flex-item($flex: 1 1 auto);
   }
+
   .file-info {
     padding: 5px 0;
     @include truncate();

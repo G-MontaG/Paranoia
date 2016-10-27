@@ -4,7 +4,7 @@
       <div class="file-info">
         {{file.name}}
       </div>
-      <div class="ui popup flowing">
+      <div class="ui popup very wide">
         <h5>Full path</h5>
         <p>{{file.fullPath}}</p>
         <h5>Size</h5>
@@ -16,9 +16,32 @@
     <form class="ui form">
       <div class="field">
         <label>Select algorithm</label>
-        <sm-select [(model)]="selectedAlgorithm" placeholder="Select algorithm..." class="fluid search">
+        <sm-select [control]="algorithm" placeholder="Select algorithm..." class="fluid search">
           <option *ngFor="let algorithm of cryptConfiguringService.algorithms">{{algorithm}}</option>
         </sm-select>
+      </div>
+      <div class="ui pointing secondary menu">
+        <a class="item active" data-tab="manual">Manual</a>
+        <a class="item" data-tab="keyStorage">Key Storage</a>
+      </div>
+      <div class="ui tab active" data-tab="manual">
+        <div [formGroup]="manualConfiguringForm">
+          <div class="field">
+            <label>Password</label>
+            <div class="ui input">
+              <input type="text" placeholder="Enter password" formControlName="password">
+            </div>
+          </div>
+          <div class="field">
+            <label>Salt</label>
+            <div class="ui input">
+              <input type="text" placeholder="Enter salt" formControlName="salt">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui tab" data-tab="keyStorage">
+        <div class="field">Key Storage</div>
       </div>
       <button class="ui button default" (click)="cancel($event)">Cancel</button>
     </form>

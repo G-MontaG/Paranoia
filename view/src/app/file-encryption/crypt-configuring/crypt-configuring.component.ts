@@ -10,8 +10,11 @@ import {FormControl, FormGroup, FormBuilder} from "@angular/forms";
   providers: []
 })
 export class CryptConfiguringComponent implements OnInit, OnDestroy, AfterViewInit {
-  public configuringForm: FormGroup;
+  public manualConfiguringForm: FormGroup;
+  public keyStorageConfiguringForm: FormGroup;
   public algorithm: FormControl;
+  public manualPassword: FormControl;
+  public manualSalt: FormControl;
 
   constructor(private _router: Router,
               private _fb: FormBuilder,
@@ -25,6 +28,7 @@ export class CryptConfiguringComponent implements OnInit, OnDestroy, AfterViewIn
 
   ngAfterViewInit() {
     $('div.file-info').popup();
+    $('.menu .item').tab();
   }
 
   ngOnDestroy() {
@@ -34,8 +38,11 @@ export class CryptConfiguringComponent implements OnInit, OnDestroy, AfterViewIn
   private initForm() {
     this.algorithm = new FormControl("aes-256-gcm");
 
-    this.configuringForm = this._fb.group({
-      algorithm: this.algorithm
+    this.manualPassword = new FormControl("");
+
+    this.manualConfiguringForm = this._fb.group({
+      password: this.manualPassword,
+      salt: this.manualSalt
     });
   }
 

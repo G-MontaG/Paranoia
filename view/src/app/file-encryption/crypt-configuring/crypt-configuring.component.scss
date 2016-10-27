@@ -8,6 +8,13 @@
   &__config {
     padding: 15px;
     @include flex-item($flex: 1 1 auto);
+    .ui.form {
+      height: 100%;
+      @include flex-container(flex, $flex-direction: column);
+      .vertical-stretch {
+        @include flex-item($flex: 1 1 auto);
+      }
+    }
   }
 
   .file-info {

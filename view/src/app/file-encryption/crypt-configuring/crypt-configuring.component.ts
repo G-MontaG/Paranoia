@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy, AfterViewInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {FileEncryptionService} from "../service/file-encryption.service";
 import {CryptConfiguringService} from "./service/crypt-configuring.service";
-import {FormControl, FormGroup, FormBuilder} from "@angular/forms";
+import {FormControl, FormGroup, FormBuilder, Validators} from "@angular/forms";
 
 @Component({
   selector: 'crypt-configuring',
@@ -38,7 +38,8 @@ export class CryptConfiguringComponent implements OnInit, OnDestroy, AfterViewIn
   private initForm() {
     this.algorithm = new FormControl("aes-256-gcm");
 
-    this.manualPassword = new FormControl("");
+    this.manualPassword = new FormControl("", [Validators.required, Validators.minLength(6)]);
+    this.manualSalt = new FormControl("", [Validators.required, Validators.minLength(32)]);
 
     this.manualConfiguringForm = this._fb.group({
       password: this.manualPassword,

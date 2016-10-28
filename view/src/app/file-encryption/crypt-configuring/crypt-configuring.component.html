@@ -55,15 +55,15 @@
                   <div class="menu">
                     <div class="item" (click)="cryptConfiguringService.setPasswordSize(12)">
                       <div class="ui blue empty circular label"></div>
-                      Small
+                      12 characters
                     </div>
                     <div class="item" (click)="cryptConfiguringService.setPasswordSize(16)">
                       <div class="ui yellow empty circular label"></div>
-                      Medium
+                      16 characters
                     </div>
                     <div class="item" (click)="cryptConfiguringService.setPasswordSize(20)">
                       <div class="ui red empty circular label"></div>
-                      Large
+                      20 characters
                     </div>
                   </div>
                 </div>
@@ -72,7 +72,8 @@
             <div class="field">
               <label>Salt</label>
               <div class="ui input">
-                <input type="text" placeholder="Enter salt" formControlName="salt">
+                <textarea rows="6" placeholder="Enter salt" formControlName="salt">
+                  </textarea>
               </div>
               <div *ngIf="manualConfiguringForm.controls.salt.dirty &&
                         !manualConfiguringForm.controls.salt.valid"
@@ -86,9 +87,22 @@
               </div>
             </div>
             <div class="field">
-              <button class="ui button primary"
-                      (click)="generateSalt($event)">Generate salt
-              </button>
+              <div class="ui primary buttons">
+                <div class="ui button" (click)="generateSalt($event)">Generate salt</div>
+                <div class="ui floating dropdown icon button">
+                  <i class="dropdown icon"></i>
+                  <div class="menu">
+                    <div class="item" (click)="cryptConfiguringService.setSaltSize(128)">
+                      <div class="ui blue empty circular label"></div>
+                      128 bit
+                    </div>
+                    <div class="item" (click)="cryptConfiguringService.setSaltSize(256)">
+                      <div class="ui red empty circular label"></div>
+                      256 bit
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

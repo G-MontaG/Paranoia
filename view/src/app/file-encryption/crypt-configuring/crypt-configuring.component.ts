@@ -68,7 +68,7 @@ export class CryptConfiguringComponent implements OnInit, OnDestroy, AfterViewIn
 
   public generateSalt(event) {
     event.stopPropagation();
-
+    this.manualSalt.patchValue(this.cryptConfiguringService.generateSalt());
   }
 
   public cancel(event) {

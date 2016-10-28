@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+const crypto = require('crypto');
 const passwordGenerator = require('password-generator');
 
 @Injectable()
@@ -40,6 +41,7 @@ export class CryptConfiguringService {
   ];
 
   private _minLength: number = 12;
+  private _minLengthSalt: number = 128;
 
   constructor() {
   }
@@ -84,5 +86,13 @@ export class CryptConfiguringService {
     }
 
     return createPassword();
+  }
+
+  public setSaltSize(size: number) {
+    this._minLengthSalt = size;
+  }
+
+  public generateSalt() {
+    return crypto.randomBytes(this._minLengthSalt).toString('hex');
   }
 }

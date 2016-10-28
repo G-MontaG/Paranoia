@@ -17,6 +17,8 @@ export class CryptConfiguringComponent implements OnInit, OnDestroy, AfterViewIn
   public manualPassword: FormControl;
   public manualSalt: FormControl;
 
+  private _minLength: number = 12;
+
   constructor(private _router: Router,
               private _fb: FormBuilder,
               private _el: ElementRef,
@@ -31,6 +33,7 @@ export class CryptConfiguringComponent implements OnInit, OnDestroy, AfterViewIn
   ngAfterViewInit() {
     $('div.file-info').popup();
     $('.menu .item').tab();
+    $('.ui.dropdown').dropdown();
   }
 
   ngOnDestroy() {
@@ -61,12 +64,51 @@ export class CryptConfiguringComponent implements OnInit, OnDestroy, AfterViewIn
     });
   }
 
+  public setPasswordSize(size: number) {
+    this._minLength = size;
+  }
+
   public generatePassword(event) {
-    this.manualPassword.patchValue(passwordGenerator(6, false,
-      /[\w\d\W\!\@\#\$\%\^\&\*\(\)\=\_\+\,\.\/\<\>\?\;\'\:\"\|\{\}]/));
+    event.stopPropagation();
+    let self = this;
+    let uppercaseMinCount = 3;
+    let lowercaseMinCount = 3;
+    let numberMinCount = 2;
+    let specialMinCount = 2;
+    let UPPERCASE_RE = /([A-Z])/g;
+    let LOWERCASE_RE = /([a-z])/g;
+    let NUMBER_RE = /([\d])/g;
+    let SPECIAL_CHAR_RE = /([\!\@\#\$\%\^\&\*\(\)\=\_\+\,\.\/\<\>\?\;\'\:\"\|\{\}])/g;
+    let NON_REPEATING_CHAR_RE = /([\w\d\!\@\#\$\%\^\&\*\(\)\=\_\+\,\.\/\<\>\?\;\'\:\"\|\{\}])\1{2,}/g;
+
+    function isStrongEnough(password) {
+      let uc = password.match(UPPERCASE_RE);
+      let lc = password.match(LOWERCASE_RE);
+      let n = password.match(NUMBER_RE);
+      let sc = password.match(SPECIAL_CHAR_RE);
+      let nr = password.match(NON_REPEATING_CHAR_RE);
+      return password.length >= self._minLength &&
+        !nr &&
+        uc && uc.length >= uppercaseMinCount &&
+        lc && lc.length >= lowercaseMinCount &&
+        n && n.length >= numberMinCount &&
+        sc && sc.length >= specialMinCount;
+    }
+
+    function createPassword() {
+      let password = "";
+      while (!isStrongEnough(password)) {
+        password = passwordGenerator(self._minLength, false,
+          /[\w\d\!\@\#\$\%\^\&\*\(\)\=\_\+\,\.\/\<\>\?\;\'\:\"\|\{\}]/);
+      }
+      return password;
+    }
+
+    this.manualPassword.patchValue(createPassword());
   }
 
   public generateSalt(event) {
+    event.stopPropagation();
 
   }
 

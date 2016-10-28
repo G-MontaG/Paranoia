@@ -22,8 +22,8 @@
       </div>
       <div class="field vertical-stretch">
         <div class="ui pointing secondary menu">
-          <a class="item active" data-tab="manual">Manual</a>
-          <a class="item" data-tab="keyStorage">Key Storage</a>
+          <a class="item active" data-tab="manual" (click)="typeOfForm = 'manual'">Manual</a>
+          <a class="item" data-tab="keyStorage" (click)="typeOfForm = 'keyStorage'">Key Storage</a>
         </div>
         <div class="ui tab active" data-tab="manual">
           <div [formGroup]="manualConfiguringForm" class="crypt-configuring__form">
@@ -112,7 +112,9 @@
       </div>
       <div>
         <button class="ui button right floated primary"
-                (click)="cancel($event)">Encrypt
+                (click)="setConfig($event)">
+          <span *ngIf="fileEncryptionService.config.type === 'encrypt'">Encrypt</span>
+          <span *ngIf="fileEncryptionService.config.type === 'decrypt'">Decrypt</span>
         </button>
         <button class="ui button right floated default"
                 (click)="cancel($event)">Cancel

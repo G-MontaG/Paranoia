@@ -60,8 +60,10 @@ export class FileManagementComponent implements OnInit, OnDestroy {
     let selectedList;
     if (type === 'encrypt') {
       selectedList = this.encryptFileListService.getSelectedList(this.encryptList);
+      this._fileEncryptionService.config.type = 'encrypt';
     } else {
       selectedList = this.decryptFileListService.getSelectedList(this.decryptList);
+      this._fileEncryptionService.config.type = 'decrypt';
     }
     this._fileEncryptionService.fileList = selectedList;
     this._router.navigate(['file-encryption', 'configuring']);

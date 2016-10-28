@@ -4,7 +4,7 @@ import {AbstractFileModel} from '../file-management/services/abstract-file.model
 @Injectable()
 export class FileEncryptionService {
   private _fileList: Array<AbstractFileModel>;
-  private _config: any;
+  private _config: Config = {};
   private _progress: any;
 
   constructor() {
@@ -33,4 +33,11 @@ export class FileEncryptionService {
   public set progress(progress) {
     this._progress = progress;
   }
+}
+
+interface Config {
+  type?: string,
+  algorithm?: string,
+  password?: string,
+  salt?: string
 }

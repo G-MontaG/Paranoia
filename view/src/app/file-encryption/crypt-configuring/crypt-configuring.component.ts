@@ -13,6 +13,7 @@ export class CryptConfiguringComponent implements OnInit, OnDestroy, AfterViewIn
   public manualConfiguringForm: FormGroup;
   public keyStorageConfiguringForm: FormGroup;
   public algorithm: FormControl;
+  public typeOfForm: string = 'manual';
   public manualPassword: FormControl;
   public manualSalt: FormControl;
 
@@ -74,5 +75,15 @@ export class CryptConfiguringComponent implements OnInit, OnDestroy, AfterViewIn
   public cancel(event) {
     event.stopPropagation();
     this._router.navigate(['file-encryption']);
+  }
+
+  public setConfig(event) {
+    event.stopPropagation();
+    this.fileEncryptionService.config.algorithm = this.algorithm.value;
+    if(this.typeOfForm === 'manual') {
+      this.fileEncryptionService.config.password = this.manualConfiguringForm.value.password;
+      this.fileEncryptionService.config.salt = this.manualConfiguringForm.value.salt;
+    }
+    console.log(this.fileEncryptionService.config);
   }
 }

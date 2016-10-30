@@ -190,4 +190,5 @@ export interface AlgorithmConfig {
   requireTag: boolean,
   keyLength: number,
   ivLength: number
+  tagLength?: number
 }

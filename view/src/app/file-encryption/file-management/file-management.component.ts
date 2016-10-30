@@ -29,21 +29,23 @@ export class FileManagementComponent implements OnInit, OnDestroy {
     this.encryptFileManagementService = new FileManagementService('encrypt');
     this.decryptFileManagementService = new FileManagementService('decrypt');
 
-    this.encryptFileListService = new FileListService('encrypt');
-    this.decryptFileListService = new FileListService('decrypt');
+    this.encryptFileListService = new FileListService();
+    this.decryptFileListService = new FileListService();
   }
 
   ngOnInit() {
     this.subscribers.push(this.encryptFileManagementService.subscribeFiles().subscribe(
       (list: Array<fileInfo>) => {
-        this.encryptList = this.encryptFileListService.createList(list);
+        this.encryptList = this.encryptFileListService.createList(list,
+          this.encryptFileManagementService.getCurrentState());
         this._changeDetection.detectChanges();
       }
     ));
 
     this.subscribers.push(this.decryptFileManagementService.subscribeFiles().subscribe(
       (list: Array<fileInfo>) => {
-        this.decryptList = this.decryptFileListService.createList(list);
+        this.decryptList = this.decryptFileListService.createList(list,
+          this.encryptFileManagementService.getCurrentState());
         this._changeDetection.detectChanges();
       }
     ));

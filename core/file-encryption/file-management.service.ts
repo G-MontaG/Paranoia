@@ -1,12 +1,12 @@
 import moment = require("moment");
-import {ipcMain, dialog} from 'electron';
+import {ipcMain, dialog} from "electron";
+import {win} from "../../init";
+import {FileSystemService} from "../file-system.service";
+import {appConfigService} from "../app-config.service";
 const pathModule = require('path');
 const fs = require('fs');
 import _ = require('lodash');
 import fileSize = require('filesize');
-import {win} from "../../init";
-import {FileSystemService} from "../file-system.service";
-import {appConfigService} from "../app-config.service";
 
 class FileManagementService {
   private _watch = {
@@ -58,12 +58,7 @@ class FileManagementService {
 
   private _getFiles() {
     ipcMain.on(`fileManagementGetFiles-${this.type}`, (event, arg: string) => {
-      let currentPath;
-      if (this.type === 'encrypt') {
-        currentPath = pathModule.join(appConfigService.fileManagement.encryptRoot, arg);
-      } else {
-        currentPath = pathModule.join(appConfigService.fileManagement.decryptRoot, arg);
-      }
+      let currentPath = pathModule.join(appConfigService.fileManagement[`${this.type}Root`], arg);
       FileSystemService.stat(currentPath)
         .then((stats) => {
           if (!stats) {
@@ -139,12 +134,7 @@ class FileManagementService {
 
   private _addFiles() {
     ipcMain.on(`fileManagementAddFiles-${this.type}`, (event, arg: string) => {
-      let currentPath;
-      if (this.type === 'encrypt') {
-        currentPath = pathModule.join(appConfigService.fileManagement.encryptRoot, arg);
-      } else {
-        currentPath = pathModule.join(appConfigService.fileManagement.decryptRoot, arg);
-      }
+      let currentPath = pathModule.join(appConfigService.fileManagement[`${this.type}Root`], arg);
       let arrayOfFiles = dialog.showOpenDialog({
         title: `Add files to ${this.type} folder`,
         defaultPath: FileSystemService.getUserHomePath(),
@@ -160,24 +150,16 @@ class FileManagementService {
 
   private _removeFile() {
     ipcMain.on(`fileManagementRemoveFile-${this.type}`, (event, arg: {path: string, fileName: string}) => {
-      let currentPath;
-      if (this.type === 'encrypt') {
-        currentPath = pathModule.join(appConfigService.fileManagement.encryptRoot, arg.path, arg.fileName);
-      } else {
-        currentPath = pathModule.join(appConfigService.fileManagement.decryptRoot, arg.path, arg.fileName);
-      }
+      let currentPath = pathModule.join(
+        appConfigService.fileManagement[`${this.type}Root`], arg.path, arg.fileName);
       FileSystemService.unlink(currentPath);
     });
   }
 
   private _removeDir() {
     ipcMain.on(`fileManagementRemoveDir-${this.type}`, (event, arg: {path: string, dirName: string}) => {
-      let currentPath;
-      if (this.type === 'encrypt') {
-        currentPath = pathModule.join(appConfigService.fileManagement.encryptRoot, arg.path, arg.dirName);
-      } else {
-        currentPath = pathModule.join(appConfigService.fileManagement.decryptRoot, arg.path, arg.dirName);
-      }
+      let currentPath = pathModule.join(
+        appConfigService.fileManagement[`${this.type}Root`], arg.path, arg.dirName);
       FileSystemService.rmdir(currentPath);
     });
   }

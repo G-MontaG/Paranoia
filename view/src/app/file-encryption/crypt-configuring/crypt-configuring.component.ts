@@ -83,7 +83,9 @@ export class CryptConfiguringComponent implements OnInit, OnDestroy, AfterViewIn
     if(this.typeOfForm === 'manual') {
       this.fileEncryptionService.config.password = this.manualConfiguringForm.value.password;
       this.fileEncryptionService.config.salt = this.manualConfiguringForm.value.salt;
+    } else {
+
     }
-    console.log(this.fileEncryptionService.config);
+    this._router.navigate(['file-encryption', 'progress']);
   }
 }

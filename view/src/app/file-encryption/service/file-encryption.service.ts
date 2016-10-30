@@ -4,13 +4,13 @@ import {AbstractFileModel} from '../file-management/services/abstract-file.model
 @Injectable()
 export class FileEncryptionService {
   private _fileList: Array<AbstractFileModel>;
-  private _config: Config = {};
+  private _config: FileEncryptionConfig = {};
   private _progress: any;
 
   constructor() {
   }
 
-  public get fileList() {
+  public get fileList(): Array<AbstractFileModel> {
     return this._fileList;
   }
 
@@ -18,7 +18,7 @@ export class FileEncryptionService {
     this._fileList = fileList;
   }
 
-  public get config() {
+  public get config(): FileEncryptionConfig {
     return this._config;
   }
 
@@ -35,7 +35,7 @@ export class FileEncryptionService {
   }
 }
 
-interface Config {
+export interface FileEncryptionConfig {
   type?: string,
   algorithm?: string,
   password?: string,

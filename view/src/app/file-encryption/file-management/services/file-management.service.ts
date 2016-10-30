@@ -1,9 +1,8 @@
 import {Injectable} from "@angular/core";
 import {ipcRenderer} from "electron";
 import {Observable} from "rxjs";
-import path = require('path');
-import _ = require('lodash');
 import {AbstractFileModel} from "./abstract-file.model";
+const path = require('path');
 
 @Injectable()
 export class FileManagementService {

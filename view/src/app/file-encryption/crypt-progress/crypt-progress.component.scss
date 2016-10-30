@@ -1,0 +1,5 @@
+.crypt-progress {
+  height: 100%;
+  @include flex-container(flex, $align-items: stretch, $flex-wrap: nowrap);
+
+}

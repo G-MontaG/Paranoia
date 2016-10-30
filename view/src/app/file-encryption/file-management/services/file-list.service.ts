@@ -1,21 +1,19 @@
-import {Injectable} from '@angular/core';
-import {Observable, BehaviorSubject} from "rxjs";
-import "lodash";
-import {fileInfo} from './file-info.model';
-import {AbstractFileCreatorService} from './abstract-file-creator.service';
+import {Injectable} from "@angular/core";
+const _ = require('lodash');
+import {fileInfo} from "./file-info.model";
+import {AbstractFileCreatorService} from "./abstract-file-creator.service";
 import {AbstractFileModel} from "./abstract-file.model";
-import {FileManagementService} from "./file-management.service";
 
 @Injectable()
 export class FileListService {
-  constructor(type: string) {
+  constructor() {
 
   }
 
-  public createList(files: Array<fileInfo>) {
+  public createList(files: Array<fileInfo>, state: string) {
     let currentList = [];
     _.forEach(files, (file) => {
-      currentList.push(AbstractFileCreatorService.getCreator(file).create(file));
+      currentList.push(AbstractFileCreatorService.getCreator(file).create(file, state));
     });
     return currentList;
   }

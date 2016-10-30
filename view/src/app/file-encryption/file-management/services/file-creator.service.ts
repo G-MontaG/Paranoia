@@ -1,12 +1,11 @@
 import {Injectable} from "@angular/core";
-import "lodash";
+const _ = require('lodash');
+const path = require('path');
 import {AbstractFileCreatorService} from "./abstract-file-creator.service";
 import {fileInfo} from "./file-info.model";
-import {AbstractFileModel} from "./abstract-file.model";
 import {FileManagementService} from "./file-management.service";
 import {remote} from "electron";
 const Menu = remote.Menu;
-const MenuItem = remote.MenuItem;
 
 @Injectable()
 export class FileCreatorService implements AbstractFileCreatorService {
@@ -15,8 +14,9 @@ export class FileCreatorService implements AbstractFileCreatorService {
 
   private menu;
 
-  public create(file: fileInfo) {
+  public create(file: fileInfo, state: string) {
     return _.assign(file, {
+      path: path.join(state, file.name),
       selected: false,
       isSelected() {
         return this.selected;

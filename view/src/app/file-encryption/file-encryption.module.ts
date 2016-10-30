@@ -14,6 +14,7 @@ import {DirectoryCreatorService} from "./file-management/services/directory-crea
 import {CryptConfiguringComponent} from "./crypt-configuring/crypt-configuring.component";
 import {CryptConfiguringService} from "./crypt-configuring/service/crypt-configuring.service";
 import {CryptProgressComponent} from "./crypt-progress/crypt-progress.component";
+import {CryptProgressService} from "./crypt-progress/service/crypt-progress.service";
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import {CryptProgressComponent} from "./crypt-progress/crypt-progress.component"
     FileListService,
     FileCreatorService,
     DirectoryCreatorService,
-    CryptConfiguringService
+    CryptConfiguringService,
+    CryptProgressService
   ]
 })
 export class FileEncryptionModule {

@@ -11,10 +11,7 @@ import _ = require('lodash');
 import moment = require("moment");
 
 class CryptService {
-  private type: string;
-
-  constructor(type: string) {
-    this.type = type;
+  constructor() {
     this._encryptFiles();
     this._decryptFiles();
   }
@@ -24,7 +21,9 @@ class CryptService {
       (event, arg: {fileList: Array<FileListItem>, config: ViewCryptConfig}) => {
         let algorithmConfig: AlgorithmConfig = AlgorithmConfigService.getConfig(arg.config.algorithm);
         _.forEach(arg.fileList, (file) => {
-          let generatedHash;
+          let generatedHash = '';
+          let cipherText = Buffer.from('');
+          let cipherTextPath = pathModule.join(appConfigService.fileManagement.decryptRoot, file.path);
           FileSystemService.stat(file.fullPath)
             .then(() => {
               return HashService.getHash(arg.config.password, algorithmConfig.keyLength, arg.config.salt);
@@ -36,52 +35,26 @@ class CryptService {
             .then((plainText: Buffer) => {
               let iv = crypto.randomBytes(algorithmConfig.ivLength);
               let cipher = crypto.createCipheriv(algorithmConfig.algorithm, generatedHash, iv);
-              let cipherText = Buffer.concat([cipher.update(plainText), cipher.final()]);
+              let cipherTextFromFile = Buffer.concat([cipher.update(plainText), cipher.final()]);
               if (algorithmConfig.requireTag) {
                 let tag = cipher.getAuthTag();
-                return {
-                  iv: iv,
-                  tag: tag,
-                  cipherText: cipherText
-                };
+                cipherText = Buffer.concat([iv, tag, cipherTextFromFile]);
               } else {
-                return {
-                  iv: iv,
-                  cipherText: cipherText
-                };
+                cipherText = Buffer.concat([iv, cipherTextFromFile]);
               }
-            })
-            .then((encipheringResult: {
-              iv: Buffer,
-              tag?: Buffer,
-              cipherText: Buffer
-            }) => {
-              let cipherText = Buffer.from('');
-              if (algorithmConfig.requireTag) {
-                cipherText = Buffer.concat([
-                  encipheringResult.iv,
-                  encipheringResult.tag,
-                  encipheringResult.cipherText
-                ]);
-              } else {
-                cipherText = Buffer.concat([
-                  encipheringResult.iv,
-                  encipheringResult.cipherText
-                ]);
-              }
-              return cipherText;
-            })
-            .then((cipherText: Buffer) => {
-              return FileSystemService.writeFile(
-                pathModule.join(appConfigService.fileManagement.decryptRoot, file.path),
-                cipherText
-              );
             })
             .then(() => {
-              event.sender.send(`cryptFiles-${this.type}-reply`, file.name);
+              return FileSystemService.mkdir(pathModule.dirname(cipherTextPath));
+            })
+            .then(() => {
+              return FileSystemService.writeFile(cipherTextPath, cipherText);
+            })
+            .then(() => {
+              event.sender.send(`cryptFiles-encrypt-reply`, file.name);
             })
             .catch((err) => {
               console.log(err);
+              event.sender.send(`cryptFiles-encrypt-reply`, err);
             })
         });
       });
@@ -92,7 +65,9 @@ class CryptService {
       (event, arg: {fileList: Array<FileListItem>, config: ViewCryptConfig}) => {
         let algorithmConfig: AlgorithmConfig = AlgorithmConfigService.getConfig(arg.config.algorithm);
         _.forEach(arg.fileList, (file) => {
-          let generatedHash;
+          let generatedHash = '';
+          let planeText = Buffer.from('');
+          let planeTextPath = pathModule.join(appConfigService.fileManagement.encryptRoot, file.path);
           FileSystemService.stat(file.fullPath)
             .then(() => {
               return HashService.getHash(arg.config.password, algorithmConfig.keyLength, arg.config.salt);
@@ -130,27 +105,27 @@ class CryptService {
               if (algorithmConfig.requireTag) {
                 decipher.setAuthTag(cipherObject.tag);
               }
-              return Buffer.concat([decipher.update(cipherObject.cipherText), decipher.final()]);
+              planeText = Buffer.concat([decipher.update(cipherObject.cipherText), decipher.final()]);
             })
-            .then((plainText: Buffer) => {
-              return FileSystemService.writeFile(
-                pathModule.join(appConfigService.fileManagement.encryptRoot, file.path),
-                plainText
-              );
+            .then(() => {
+              return FileSystemService.mkdir(pathModule.dirname(planeTextPath));
+            })
+            .then(() => {
+              return FileSystemService.writeFile(planeTextPath, planeText);
             })
             .then(() => {
               event.sender.send(`cryptFiles-decrypt-reply`, file.name);
             })
             .catch((err) => {
               console.log(err);
+              event.sender.send(`cryptFiles-decrypt-reply`, err);
             })
         });
       });
   }
 }
 
-new CryptService('encrypt');
-new CryptService('decrypt');
+new CryptService();
 
 interface ViewCryptConfig {
   type?: string,

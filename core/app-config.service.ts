@@ -1,7 +1,7 @@
-import {ipcMain} from 'electron';
-import pathModule = require('path');
+import {ipcMain} from "electron";
 import {FileSystemService} from "./file-system.service";
 import {appConfig} from "./app-config.model";
+const pathModule = require('path');
 
 /**
  * App config service.

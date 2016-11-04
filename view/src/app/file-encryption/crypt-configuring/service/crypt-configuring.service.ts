@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable} from "@angular/core";
 const crypto = require('crypto');
 const passwordGenerator = require('password-generator');
 

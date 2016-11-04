@@ -7,18 +7,18 @@ export const routes: Routes = [
   {
     path: 'file-encryption',
     children: [
-    {
-      path: '',
-      component: FileManagementComponent
-    },
-    {
-      path: 'configuring',
-      component: CryptConfiguringComponent
-    },
-    {
-      path: 'progress',
-      component: CryptProgressComponent
-    }
-  ]
+      {
+        path: '',
+        component: FileManagementComponent
+      },
+      {
+        path: 'configuring',
+        component: CryptConfiguringComponent
+      },
+      {
+        path: 'progress',
+        component: CryptProgressComponent
+      }
+    ]
   }
 ];

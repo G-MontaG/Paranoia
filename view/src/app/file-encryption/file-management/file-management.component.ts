@@ -21,7 +21,7 @@ export class FileManagementComponent implements OnInit, OnDestroy {
   public encryptList: Array<AbstractFileModel>;
   public decryptList: Array<AbstractFileModel>;
 
-  private subscribers = [];
+  private _subscribers = [];
 
   constructor(private _changeDetection: ChangeDetectorRef,
               private _router: Router,
@@ -34,7 +34,7 @@ export class FileManagementComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscribers.push(this.encryptFileManagementService.subscribeFiles().subscribe(
+    this._subscribers.push(this.encryptFileManagementService.subscribeFiles().subscribe(
       (list: Array<fileInfo>) => {
         this.encryptList = this.encryptFileListService.createList(list,
           this.encryptFileManagementService.getCurrentState());
@@ -42,17 +42,17 @@ export class FileManagementComponent implements OnInit, OnDestroy {
       }
     ));
 
-    this.subscribers.push(this.decryptFileManagementService.subscribeFiles().subscribe(
+    this._subscribers.push(this.decryptFileManagementService.subscribeFiles().subscribe(
       (list: Array<fileInfo>) => {
         this.decryptList = this.decryptFileListService.createList(list,
-          this.encryptFileManagementService.getCurrentState());
+          this.decryptFileManagementService.getCurrentState());
         this._changeDetection.detectChanges();
       }
     ));
   }
 
   ngOnDestroy() {
-    _.forEach(this.subscribers, item => {
+    _.forEach(this._subscribers, item => {
       item.unsubscribe();
     });
   }

@@ -17,7 +17,8 @@
       <div class="field">
         <label>Select algorithm</label>
         <sm-select [control]="algorithm" placeholder="Select algorithm..." class="fluid search">
-          <option *ngFor="let algorithm of cryptConfiguringService.algorithms">{{algorithm}}</option>
+          <option *ngFor="let algorithm of cryptConfiguringService.algorithms"
+                  value="{{algorithm.key}}">{{algorithm.value}}</option>
         </sm-select>
       </div>
       <div class="field vertical-stretch">

@@ -61,7 +61,7 @@ export class AlgorithmConfigService {
       ivLength: 16
     },
     {
-      algorithm: "blowfish-ofb",
+      algorithm: "bf-ofb",
       requireTag: false,
       keyLength: 16,
       ivLength: 8
@@ -103,7 +103,7 @@ export class AlgorithmConfigService {
       ivLength: 16
     },
     {
-      algorithm: "blowfish-cfb",
+      algorithm: "bf-cfb",
       requireTag: false,
       keyLength: 16,
       ivLength: 8
@@ -145,7 +145,7 @@ export class AlgorithmConfigService {
       ivLength: 16
     },
     {
-      algorithm: "blowfish-cbc",
+      algorithm: "bf-cbc",
       requireTag: false,
       keyLength: 16,
       ivLength: 8
@@ -169,7 +169,7 @@ export class AlgorithmConfigService {
       ivLength: 16
     },
     {
-      algorithm: "aes-256-gcm",
+      algorithm: "aes-256-xts",
       requireTag: true,
       keyLength: 32,
       ivLength: 12,

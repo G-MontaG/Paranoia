@@ -5,39 +5,39 @@ const passwordGenerator = require('password-generator');
 @Injectable()
 export class CryptConfiguringService {
   public algorithms = [
-    'aes-256-gcm',
-    'aes-192-gcm',
-    'aes-128-gcm',
+    {key: 'aes-256-gcm', value: 'AES 256 GCM'},
+    {key: 'aes-192-gcm', value: 'AES 192 GCM'},
+    {key: 'aes-128-gcm', value: 'AES 128 GCM'},
 
-    'aes-256-ctr',
-    'aes-192-ctr',
-    'aes-128-ctr',
+    {key: 'aes-256-ctr', value: 'AES 256 CTR'},
+    {key: 'aes-192-ctr', value: 'AES 192 CTR'},
+    {key: 'aes-128-ctr', value: 'AES 128 CTR'},
 
-    'aes-256-ofb',
-    'aes-192-ofb',
-    'aes-128-ofb',
-    'blowfish-ofb',
-    'camellia-256-ofb',
-    'camellia-192-ofb',
-    'camellia-128-ofb',
+    {key: 'aes-256-ofb', value: 'AES 256 OFB'},
+    {key: 'aes-192-ofb', value: 'AES 192 OFB'},
+    {key: 'aes-128-ofb', value: 'AES 128 OFB'},
+    {key: 'bf-ofb', value: 'Blowfish 128 OFB'},
+    {key: 'camellia-256-ofb', value: 'Camellia 256 OFB'},
+    {key: 'camellia-192-ofb', value: 'Camellia 192 OFB'},
+    {key: 'camellia-128-ofb', value: 'Camellia 128 OFB'},
 
-    'aes-256-cfb',
-    'aes-192-cfb',
-    'aes-128-cfb',
-    'blowfish-cfb',
-    'camellia-256-cfb',
-    'camellia-192-cfb',
-    'camellia-128-cfb',
+    {key: 'aes-256-cfb', value: 'AES 256 CFB'},
+    {key: 'aes-192-cfb', value: 'AES 192 CFB'},
+    {key: 'aes-128-cfb', value: 'AES 128 CFB'},
+    {key: 'bf-cfb', value: 'Blowfish 128 CFB'},
+    {key: 'camellia-256-cfb', value: 'Camellia 256 CFB'},
+    {key: 'camellia-192-cfb', value: 'Camellia 192 CFB'},
+    {key: 'camellia-128-cfb', value: 'Camellia 128 CFB'},
 
-    'aes-256-cbc',
-    'aes-192-cbc',
-    'aes-128-cbc',
-    'blowfish-cbc',
-    'camellia-256-cbc',
-    'camellia-192-cbc',
-    'camellia-128-cbc',
+    {key: 'aes-256-cbc', value: 'AES 256 CBC'},
+    {key: 'aes-192-cbc', value: 'AES 192 CBC'},
+    {key: 'aes-128-cbc', value: 'AES 128 CBC'},
+    {key: 'bf-cbc', value: 'Blowfish 128 CBC'},
+    {key: 'camellia-256-cbc', value: 'Camellia 256 CBC'},
+    {key: 'camellia-192-cbc', value: 'Camellia 192 CBC'},
+    {key: 'camellia-128-cbc', value: 'Camellia 128 CBC'},
 
-    'aes-256-xts'
+    {key: 'aes-256-xts', value: 'AES 256 XTS'}
   ];
 
   private _minLength: number = 12;

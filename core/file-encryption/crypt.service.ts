@@ -54,7 +54,7 @@ class CryptService {
             })
             .catch((err) => {
               console.log(err);
-              event.sender.send(`cryptFiles-encrypt-reply`, err);
+              event.sender.send(`cryptFiles-encrypt-reply`, err.message);
             })
         });
       });
@@ -118,7 +118,7 @@ class CryptService {
             })
             .catch((err) => {
               console.log(err);
-              event.sender.send(`cryptFiles-decrypt-reply`, err);
+              event.sender.send(`cryptFiles-decrypt-reply`, err.message);
             })
         });
       });

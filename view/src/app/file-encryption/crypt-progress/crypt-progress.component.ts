@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, AfterViewInit} from "@angular/core";
+import {Component, OnInit, OnDestroy, AfterViewInit, ChangeDetectorRef} from "@angular/core";
 import {CryptProgressService} from "./service/crypt-progress.service";
 import {FileEncryptionService} from "../service/file-encryption.service";
 import {Router} from "@angular/router";
@@ -10,6 +10,7 @@ import {Router} from "@angular/router";
 })
 export class CryptProgressComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(private _router: Router,
+              private _changeDetection: ChangeDetectorRef,
               private _fileEncryptionService: FileEncryptionService,
               private _cryptProgressService: CryptProgressService) {
   }
@@ -57,6 +58,7 @@ export class CryptProgressComponent implements OnInit, OnDestroy, AfterViewInit 
     this._progressBar.progress('increment');
     if (this._progressBar.progress('value') === this._fileEncryptionService.fileList.length) {
       this.isDone = true;
+      this._changeDetection.detectChanges();
     }
   }
 

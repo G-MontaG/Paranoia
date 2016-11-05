@@ -1,7 +1,6 @@
 const crypto = require('crypto');
 
 export class HashService {
-
   public static getHash(password: string, keyLength: number, salt: string) {
     return new Promise((resolve, reject) => {
       let length = keyLength || 512;

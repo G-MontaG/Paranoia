@@ -78,6 +78,7 @@ export class CryptConfiguringComponent implements OnInit, OnDestroy, AfterViewIn
   }
 
   public setConfig(event) {
+    event.preventDefault();
     event.stopPropagation();
     this.fileEncryptionService.config.algorithm = this.algorithm.value;
     if(this.typeOfForm === 'manual') {

@@ -14,11 +14,6 @@ import {SettingsModule} from "./settings/settings.module";
 import {AppConfigService} from "./services/app-config.service";
 import {appConfig} from "./services/app-config.model";
 
-let options = {
-  autoDismiss: true,
-  positionClass: 'toast-top-right',
-};
-
 export function createAppModule(arg: appConfig) {
   @NgModule({
     declarations: [
@@ -32,7 +27,6 @@ export function createAppModule(arg: appConfig) {
       RouterModule.forRoot(routes, {useHash: true}),
       ReactiveFormsModule,
       NgSemanticModule,
-      //SuiModule,
       FileEncryptionModule,
       KeyStorageModule,
       ConnectionModule,
@@ -48,6 +42,7 @@ export function createAppModule(arg: appConfig) {
     ]
   })
   class AppModule {
+
   }
 
   return AppModule;

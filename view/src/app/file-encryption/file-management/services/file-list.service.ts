@@ -21,7 +21,7 @@ export class FileListService {
   public getSelectedList(list: Array<AbstractFileModel>) {
     let selectedFiles = [];
     _.forEach(list, (file) => {
-      if(file.isSelected()) {
+      if(file.isSelected() && file.type === 'file') {
         selectedFiles.push(file);
       }
     });

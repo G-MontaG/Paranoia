@@ -6,42 +6,6 @@ Paranoia cross-platform application for information security written based on No
 #### File encryption module
 
 Encrypts and decrypts files using user-defined password and salt.
-Supported algorithms:
-
-- GCM mode (recommended)
-  - aes-256-gcm
-  - aes-192-gcm
-  - aes-128-gcm
-- CTR mode
-  - aes-256-ctr
-  - aes-192-ctr
-  - aes-128-ctr
-- OFB mode
-  - aes-256-ofb
-  - aes-192-ofb
-  - aes-128-ofb
-  - blowfish-ofb
-  - camellia-256-ofb
-  - camellia-192-ofb
-  - camellia-128-ofb
-- CFB mode
-  - aes-256-cfb
-  - aes-192-cfb
-  - aes-128-cfb
-  - blowfish-cfb
-  - camellia-256-cfb
-  - camellia-192-cfb
-  - camellia-128-cfb
-- CBC mode
-  - aes-256-cbc
-  - aes-192-cbc
-  - aes-128-cbc
-  - blowfish-cbc
-  - camellia-256-cbc
-  - camellia-192-cbc
-  - camellia-128-cbc
-- XTS mode
-  - aes-256-xts (maybe)
   
 #### Key storage
 

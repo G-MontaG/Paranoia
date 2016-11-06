@@ -17,8 +17,8 @@
       <div class="field">
         <label>Select algorithm</label>
         <sm-select [control]="algorithm" placeholder="Select algorithm..." class="fluid search">
-          <option *ngFor="let algorithm of cryptConfiguringService.algorithms"
-                  value="{{algorithm.key}}">{{algorithm.value}}</option>
+          <option *ngFor="let algorithmItem of cryptConfiguringService.algorithms"
+                  value="{{algorithmItem.algorithm}}">{{algorithmItem.name}}</option>
         </sm-select>
       </div>
       <div class="field vertical-stretch">
@@ -112,7 +112,7 @@
         </div>
       </div>
       <div>
-        <button t class="ui button right floated primary"
+        <button class="ui button right floated primary"
                 (click)="setConfig($event)">
           <span *ngIf="fileEncryptionService.config.type === 'encrypt'">Encrypt</span>
           <span *ngIf="fileEncryptionService.config.type === 'decrypt'">Decrypt</span>

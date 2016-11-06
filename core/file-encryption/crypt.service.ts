@@ -1,6 +1,6 @@
 import {appConfigService} from "../app-config.service";
 import {ipcMain} from "electron";
-import {AlgorithmConfigService, AlgorithmConfig} from "./algorithms-config.service";
+import {algorithmConfigService, AlgorithmConfig} from "./algorithms-config.service";
 import {FileSystemService} from "../file-system.service";
 import {HashService} from "./hash.service";
 import {FileListItem} from "./file.model";
@@ -19,7 +19,7 @@ class CryptService {
   private _encryptFiles() {
     ipcMain.on(`cryptFiles-encrypt`,
       (event, arg: {fileList: Array<FileListItem>, config: ViewCryptConfig}) => {
-        let algorithmConfig: AlgorithmConfig = AlgorithmConfigService.getConfig(arg.config.algorithm);
+        let algorithmConfig: AlgorithmConfig = algorithmConfigService.getConfig(arg.config.algorithm);
         _.forEach(arg.fileList, (file) => {
           let generatedHash = '';
           let cipherText = Buffer.from('');
@@ -63,7 +63,7 @@ class CryptService {
   private _decryptFiles() {
     ipcMain.on(`cryptFiles-decrypt`,
       (event, arg: {fileList: Array<FileListItem>, config: ViewCryptConfig}) => {
-        let algorithmConfig: AlgorithmConfig = AlgorithmConfigService.getConfig(arg.config.algorithm);
+        let algorithmConfig: AlgorithmConfig = algorithmConfigService.getConfig(arg.config.algorithm);
         _.forEach(arg.fileList, (file) => {
           let generatedHash = '';
           let planeText = Buffer.from('');
